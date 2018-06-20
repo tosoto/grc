@@ -15,6 +15,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import importlib
+import sys
 
 class Plugin:
     #--- Plugin types:
@@ -33,8 +34,11 @@ class Plugin:
         self.name = name
         self.moduleType = type
 
+        sys.path.append( 'plugins/' )
+
         try:
-            self.handle = importlib.import_module( 'plugins.%s' % self.name )
+            #self.handle = importlib.import_module( 'plugins.%s' % self.name )
+            self.handle = importlib.import_module( self.name )
             self.extension = self.handle.extension
         except Exception,e:
             print( "Error in plugin: %s" % self.name )

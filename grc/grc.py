@@ -23,7 +23,7 @@ import types
 import xml.etree.ElementTree
 import os
 import grc_plugin
-from OutputClass import *
+from Output import *
 from Edge import *
 from Node import *
 from Step import *

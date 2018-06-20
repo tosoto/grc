@@ -17,7 +17,7 @@
 
 import os
 import importlib
-from plugins.pluginHandler import *
+from pluginHandler import *
 
 PLUGINS_MAIN_FOLDER = 'plugins'
 PLUGINS_INIT = '__init__.py'

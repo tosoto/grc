@@ -16,7 +16,7 @@
 
 
 import xml.etree.ElementTree
-import OutputClass
+import Output
 import Node
 import Edge
 

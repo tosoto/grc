@@ -3,7 +3,7 @@ Grc is support tool for model based testing.
 
 ## Synopsis
 ```
-python grc.py [option] [file]
+grc.sh -i [file] -o [module_name] [option]
 ```
 
 ## Description
@@ -14,7 +14,13 @@ This tool for now is a simple graph crawler walking on all graph edges and conve
     - Obligatory graph file name - this graph will be analyzed by the program
 
   - -o, --output
-    - File type format to save scenarios - depends on plugins
+    - File type format to save scenarios - depends on plugins. Currently supported plugins:
+      - txt
+        - converts output to text scenarios. only description is saved
+      - py  
+        - converts output to python scripts. both code, descriptions are saved
+      - ods
+        - converts output to ods sheet - only description is saved
 
   - -s, --stopatrepeatednode
     - Stops at repeated node, does not finishes path
@@ -31,17 +37,17 @@ This tool for now is a simple graph crawler walking on all graph edges and conve
 ## Usage
 Load example graph and save scenarios as text files:
 ```
-python grc.py -i examples/browser -o txt
+grc.sh -i examples/browser -o txt
 ```
 
 Load example graph and save scenarios as python scripts:
 ```
-python grc.py -i examples/browser -o py
+grc.sh -i examples/browser -o py
 ```
 
 Load example graph and save scenarios as ods sheet:
 ```
-python grc.py -i examples/browser -o ods
+grc.sh -i examples/browser -o ods
 ```
 
 ## Author
