@@ -1,4 +1,4 @@
-#    This is part of grc module. 
+#    This is part of grc module.
 #    Copyright (C) 2018  Tomasz Otoka
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -49,6 +49,9 @@ class Step:
 
         self.action = self.StepObj( actionDescription )
         self.node = self.StepObj( stateDescription )
+
+        self.action.label = self.action.label[:-1]
+        self.node.label = self.node.label[:-1]
 
     def __str__( self ):
         return str( self.__dict__ )

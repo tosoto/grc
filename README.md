@@ -14,7 +14,7 @@ This tool for now is a simple graph crawler walking on all graph edges and conve
     - Obligatory graph file name - this graph will be analyzed by the program
 
   - -o, --output
-    - File type format to save scenarios - depends on plugins. Currently supported plugins:
+    - File type format to save scenarios - depends on plugins. Currently supported plugins (default is ods):
       - txt
         - converts output to text scenarios. only description is saved
       - py  

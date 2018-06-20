@@ -52,7 +52,7 @@ def run( parameters ):
 
 				for descriptionStep in scenario.steps:
 					if descriptionStep.id > 0:
-						scenario_file.write( '# %s. %s#    ---> %s#\n' % ( descriptionStep.id, descriptionStep.action.label, descriptionStep.node.label ) )
+						scenario_file.write( '# %s. %s\n#    ---> %s#\n' % ( descriptionStep.id, descriptionStep.action.label, descriptionStep.node.label ) )
 
 				scenario_file.write( '#\n\n\n' )
 

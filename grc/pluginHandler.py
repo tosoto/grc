@@ -32,14 +32,13 @@ class Plugin:
 
     def __init__( self, name ):
         self.name = name
-        self.moduleType = type
 
         sys.path.append( 'plugins/' )
 
         try:
-            #self.handle = importlib.import_module( 'plugins.%s' % self.name )
             self.handle = importlib.import_module( self.name )
             self.extension = self.handle.extension
+            self.type = self.handle.type
         except Exception,e:
             print( "Error in plugin: %s" % self.name )
             print( e )

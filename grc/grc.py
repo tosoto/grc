@@ -18,7 +18,6 @@
 
 import time
 import argparse
-import collections
 import types
 import xml.etree.ElementTree
 import os
@@ -29,23 +28,16 @@ from Node import *
 from Step import *
 from Scenario import *
 
-
-try:
-	import pyexcel_ods
-	PYEXCEL_ACCESSIBLE = True
-except:
-	print( "Couldn't import pyexcel-ods - scnearios export to the ods format would not be possible\nPlease install pyexcel-ods" )
-	PYEXCEL_ACCESSIBLE = False
-
 class GrcClass:
 	stdOut = OutputClass()
 
 	PYEXCEL_OUTPUT = True
-	PYEXCEL_OUTPUT_NAME = 'Scenarios.ods'
+	outputPlugin = ''
 	TEST_SCRIPTS_DIR = 'TEST_SCRIPTS'
 	GENERATE_CODE = False
 	GRAPH_NAME = ''
 	STOP_AT_REPEATED_NODE = False
+	LIST_PLUGINS = False
 
 	nodeList = []
 	edgeList = []
@@ -96,33 +88,6 @@ class GrcClass:
 
 		self.stdOut.printDebug( self.pathList )
 
-	def savePyexcelOds( self ):
-		data = collections.OrderedDict()
-		exportSheetSteps = [ ['Scenario name','Step', 'Action', 'State'] ]
-
-		for pathId in range( 0, len( self.pathList ) ):
-
-			if self.stdOut.debugFlag:
-				self.stdOut.printDebug( 'Edge:' )
-				for edge in self.edgeList:
-					self.stdOut.printDebug( edge )
-
-			steps = [['Step', 'Action', 'State']]
-			stepId = 1
-			sourceNode = None
-			for nodeId in self.pathList[ pathId ]:
-				if nodeId > 0:
-					steps.append( [ stepId, self.edgeLabel( sourceNode, nodeId), self.getNodeLabel( nodeId ) ] )
-					exportSheetSteps.append( [ 'Scenario %s' % ( pathId + 1 ), stepId, self.edgeLabel( sourceNode, nodeId), self.getNodeLabel( nodeId ) ] )
-					stepId = stepId + 1
-				sourceNode = nodeId
-
-			data.update({ 'Scenario %s' % ( pathId + 1 ): steps } )
-
-		data.update( { 'Export sheet' : exportSheetSteps } )
-		pyexcel_ods.save_data( 'scenarios.ods', data )
-		self.stdOut.myPrint( '%s scenarios saved to "%s"' % ( len( self.pathList ), self.PYEXCEL_OUTPUT_NAME ) )
-
 	def printScenariosOnStdOut( self ):
 		for pathId in range( 0, len( self.pathList ) ):
 			self.stdOut.myPrint( "Scenario: %s" % ( pathId + 1 ) )
@@ -137,15 +102,18 @@ class GrcClass:
 
 	def parseCmdParams( self ):
 		parser = argparse.ArgumentParser( description = 'Crawl over provided graph all edges and displayed them as test scenarios' )
-		parser.add_argument( '-i', '--input', type=str, help='Obligatory graph file name - this graph will be analyzed by the program', required = True )
+		parser.add_argument( '-i', '--input', type=str, help='GraphML file name, this graph will be analyzed by the program' )
 		parser.add_argument( '-d', '--debug', action = 'store_true', help = 'Enables debug. Do not use it unless you develope program ;)' )
-		parser.add_argument( '-o', '--output', type=str, help = 'File type format to save scenarios' )
+		parser.add_argument( '-o', '--output', type=str, help = 'File type format to save scenarios. Default it ods.' )
 		parser.add_argument( '-s', '--stopatrepeatednode', action = 'store_true', help = 'Stops at repeated node, does not finishes path' )
 		parser.add_argument( '-l', '--listplugins', action = 'store_true', help = 'Lists all available plugins' )
 
 		args = parser.parse_args()
 
-		self.GRAPH_NAME = args.input
+		if args.input <> None:
+			self.GRAPH_NAME = args.input
+		else:
+			self.GRAPH_NAME = 'examples/browser'
 
 		if not 'graphml' in self.GRAPH_NAME:
 			self.GRAPH_NAME = self.GRAPH_NAME + '.graphml'
@@ -153,12 +121,14 @@ class GrcClass:
 		self.stdOut.enableDebug( args.debug )
 
 		if args.output <> None:
-			self.PYEXCEL_OUTPUT_NAME = args.output
-
-		if self.PYEXCEL_OUTPUT and not PYEXCEL_ACCESSIBLE:
-			self.stdOut.printError( "pyexcel_ods could not be imported, but ods output requested. Could not continue. Please install pyexcel_ods or user '-t' option" )
+			self.outputPlugin = args.output
+		else:
+			self.outputPlugin = 'stdOut'
 
 		self.STOP_AT_REPEATED_NODE = args.stopatrepeatednode
+
+		if args.listplugins <> None:
+			self.LIST_PLUGINS = args.listplugins
 
 		self.stdOut.printDebug('GRAPH_NAME: %s' % self.GRAPH_NAME )
 
@@ -238,6 +208,10 @@ class GrcClass:
 		self.plugin = grc_plugin.init()
 
 		self.parseCmdParams()
+
+		if self.LIST_PLUGINS:
+			self.plugin.listPlugins()
+
 		self.stdOut.printDebug('GRAPH_NAME: %s' % self.GRAPH_NAME )
 
 		self.getNodeListFromGraphFile()
@@ -264,13 +238,9 @@ class GrcClass:
 					self.stdOut.printDebug( 'step.node.label: %s' % step.node.label )
 					self.stdOut.printDebug( 'step.node.code: %s' % step.node.code )
 
-		if PYEXCEL_ACCESSIBLE and self.PYEXCEL_OUTPUT:
-
-			self.savePyexcelOds()
-
- 		self.plugin.runByExtension( self.PYEXCEL_OUTPUT_NAME, { 'scenarios':self.scenariosList, 'stdOut':self.stdOut } )
-
-		if not self.PYEXCEL_OUTPUT and not self.GENERATE_CODE:
+		if self.outputPlugin <> 'stdOut':
+ 			self.plugin.runByExtension( self.outputPlugin, { 'scenarios':self.scenariosList, 'stdOut':self.stdOut } )
+		else:
 			self.printScenariosOnStdOut()
 
 		self.stdOut.myPrint("--- Crawler finised in %s seconds ---" % ( time.time() - crawlerStartTime ) )
