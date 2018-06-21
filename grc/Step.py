@@ -26,10 +26,12 @@ class Step:
             self.description = description.split( '\n' )
             for line in self.description:
                 if '\code:' in line:
-                    line = line.strip( '\code:' )
-                    self.addCodeLine( line )
+                    self.addCodeLine( line.replace( '\code:', '' ) )
                 else:
                     self.addLabelLine( line )
+
+            self.label = self.label[:-1]
+            self.code = self.code[:-1]
 
         def __str__( self ):
             return str( self.__dict__ )
@@ -49,9 +51,6 @@ class Step:
 
         self.action = self.StepObj( actionDescription )
         self.node = self.StepObj( stateDescription )
-
-        self.action.label = self.action.label[:-1]
-        self.node.label = self.node.label[:-1]
 
     def __str__( self ):
         return str( self.__dict__ )
