@@ -52,4 +52,4 @@ class Output:
 		quit()
 
 	def printWarning( self, text ):
-		self.myPrint( "Warning: %s" % text )
+		self.myPrint( "Warning: %s\n" % text )
