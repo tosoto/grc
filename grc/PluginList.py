@@ -72,4 +72,4 @@ def init():
     return PluginList()
 
 if __name__ == '__main__':
-    grc_plugin = init()
+    pluginList = init()

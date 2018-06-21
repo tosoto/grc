@@ -21,7 +21,7 @@ import argparse
 import types
 import xml.etree.ElementTree
 import os
-import grc_plugin
+import PluginList
 from Output import *
 from Edge import *
 from Node import *
@@ -205,7 +205,7 @@ class GrcClass:
 
 		crawlerStartTime = time.time()
 
-		self.plugin = grc_plugin.init()
+		self.plugin = PluginList.init()
 
 		self.parseCmdParams()
 
