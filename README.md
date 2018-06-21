@@ -50,6 +50,12 @@ Load example graph and save scenarios as ods sheet:
 grc.sh -i examples/browser -o ods
 ```
 
+## Self testing
+Please enter to the grc/tests and execute:
+```
+python -m unittest discover
+```
+
 ## Author
 Tomasz Otoka - *Initial work*
 
