@@ -1,4 +1,4 @@
-#    This is part of grc module. 
+#    This is part of grc module.
 #    Copyright (C) 2018  Tomasz Otoka
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,7 @@
 
 import types
 
-class OutputClass:
+class Output:
 	consoleOut = ''
 	debugFlag = False
 	terminalOutput = True

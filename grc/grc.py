@@ -29,7 +29,7 @@ from Step import *
 from Scenario import *
 
 class GrcClass:
-	stdOut = OutputClass()
+	stdOut = Output()
 
 	PYEXCEL_OUTPUT = True
 	outputPlugin = ''
