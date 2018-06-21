@@ -20,7 +20,7 @@ import Scenario
 
 #---------- OBLIGATORY ------------
 # extension = <file extension for plugin>
-# type = <value> - please see 'pluginHandler.py'
+# type = <value> - please see 'Plugin.py'
 extension = 'txt'
 type = 2 # output module
 #----------------------------------

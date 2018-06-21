@@ -22,7 +22,7 @@ import Edge
 
 #---------- OBLIGATORY ------------
 # extension = <file extension for plugin>
-# type = <value> - please see 'pluginHandler.py'
+# type = <value> - please see 'Plugin.py'
 
 extension = 'graphml'
 type = 1 # input file

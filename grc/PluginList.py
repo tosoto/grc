@@ -17,7 +17,7 @@
 
 import os
 import importlib
-from pluginHandler import *
+from Plugin import *
 
 PLUGINS_MAIN_FOLDER = 'plugins'
 PLUGINS_INIT = '__init__.py'
@@ -45,7 +45,7 @@ class PluginList:
 
         self.pluginList = []
         for pluginName in potentialPlugins:
-            if not ( PLUGINS_INIT in pluginName ) and not ( 'pluginHandler.py' in pluginName ):
+            if not ( PLUGINS_INIT in pluginName ) and not ( 'Plugin.py' in pluginName ):
                 if ( '.py' in pluginName ) and ( not '.pyc' in pluginName ):
                     pluginName = pluginName.replace( '.py', '' )
                     self.pluginList.append( Plugin( pluginName ) )
