@@ -59,7 +59,7 @@ def run(parameters):
                     write('    public static void main(String[] args) {\n\n')
 
             else:
-                scenario_file.write('        System.out.println("%s. %s ---> %s")\n' % (step.id, step.action.label.replace('\n', ''), step.node.label.replace('\n', '')))
+                scenario_file.write('        System.out.println("%s. %s ---> %s");\n' % (step.id, step.action.label.replace('\n', ''), step.node.label.replace('\n', '')))
                 for codeLine in step.action.code.split('\n'):
                     scenario_file.write('        %s\n' % codeLine)
                 for nodeCodeLine in step.node.code.split('\n'):
