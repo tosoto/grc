@@ -1,3 +1,4 @@
+![Glc logo](https://github.com/tosoto/grc/pic/logo.png)
 # grc
 Grc is support tool for model based testing.
 

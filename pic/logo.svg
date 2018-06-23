@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="292.70814"
+     inkscape:cx="261.64595"
      inkscape:cy="752.8958"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -58,7 +58,9 @@
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#ff004f;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        x="58.224072"
        y="103.60393"
-       id="text12"><tspan
+       id="text12"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
          sodipodi:role="line"
          x="58.224072"
          y="103.60393"
@@ -69,7 +71,9 @@
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="72.571426"
        y="108.38988"
-       id="text20"><tspan
+       id="text20"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
          sodipodi:role="line"
          id="tspan18"
          x="72.571426"
@@ -80,7 +84,9 @@
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#ffd043;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        x="71.62822"
        y="103.49686"
-       id="text28"><tspan
+       id="text28"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
          sodipodi:role="line"
          id="tspan26"
          x="71.62822"
@@ -91,7 +97,9 @@
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#30ff24;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        x="83.521729"
        y="103.43005"
-       id="text32"><tspan
+       id="text32"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
          sodipodi:role="line"
          id="tspan30"
          x="83.521729"
@@ -99,7 +107,9 @@
          style="stroke-width:0.26458332px;fill:#30ff24;fill-opacity:1;">C</tspan></text>
     <g
        id="g4587"
-       style="stroke:#004bff;stroke-opacity:1">
+       style="stroke:#004bff;stroke-opacity:1"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200">
       <path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
@@ -122,7 +132,9 @@
     <g
        transform="translate(12.687499,-0.20088372)"
        id="g4587-3"
-       style="fill:none;fill-opacity:1;stroke:#004bff;stroke-opacity:1">
+       style="fill:none;fill-opacity:1;stroke:#004bff;stroke-opacity:1"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200">
       <path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
@@ -145,7 +157,9 @@
     <g
        transform="rotate(-180,75.457432,99.604966)"
        id="g4587-3-3"
-       style="stroke:#004bff;stroke-opacity:1">
+       style="stroke:#004bff;stroke-opacity:1"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200">
       <path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
@@ -168,7 +182,9 @@
     <g
        transform="rotate(180,68.775692,99.738597)"
        id="g4587-3-3-9"
-       style="stroke:#004bff;stroke-opacity:1">
+       style="stroke:#004bff;stroke-opacity:1"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200">
       <path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
@@ -193,11 +209,13 @@
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="69.490074"
        y="91.402916"
-       id="text4700"><tspan
+       id="text4700"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
          sodipodi:role="line"
          id="tspan4698"
          x="69.490074"
          y="100.76669"
-         style="stroke-width:0.26458332px"></tspan></text>
+         style="stroke-width:0.26458332px" /></text>
   </g>
 </svg>
