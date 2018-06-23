@@ -23,6 +23,7 @@ from subprocess import call
 # type = <value> - please see 'Plugin.py'
 extension = 'cpp'
 type = 2 # output module
+language = 'cpp'
 #----------------------------------
 
 output_path = 'Scenarios_Cpp'

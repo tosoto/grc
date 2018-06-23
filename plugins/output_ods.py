@@ -25,6 +25,7 @@ import collections
 # type = <value> - please see 'Plugin.py'
 extension = 'ods'
 type = 2 # output module
+language = 'libreoffice_calc'
 #----------------------------------
 
 def run( parameters ):

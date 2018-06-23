@@ -23,6 +23,7 @@ import Scenario
 # type = <value> - please see 'Plugin.py'
 extension = 'txt'
 type = 2 # output module
+language = 'manual'
 #----------------------------------
 
 output_path = 'Scenarios_txt'

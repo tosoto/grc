@@ -53,7 +53,7 @@ class PluginList:
     def listPlugins( self ):
         for plugin in self.pluginList:
             print( '-----------------------------------------------------------------------------------' )
-            print( 'Plugin: %s\n  Extension: %s\n  Type: %s\n  Handle: %s' % ( plugin.name, plugin.extension, plugin.type, plugin.handle ) )
+            print( 'Plugin: %s\n  Extension: %s\n  Type: %s\n  Language: %s\n  Handle: %s\n' % (plugin.name, plugin.extension, plugin.type, plugin.language, plugin.handle))
 
     def runByName( self, name, parameters ):
         for plugin in self.pluginList:
@@ -66,6 +66,13 @@ class PluginList:
             if extension == plugin.extension:
                 return plugin.handle.run( parameters )
         print( "Plugin %s not found!" % extension )
+        return False
+
+    def runByLanguage(self, language, parameters):
+        for plugin in self.pluginList:
+            if language == plugin.language:
+                return plugin.handle.run(parameters)
+        print("Plugin for language %s not found!" % language)
         return False
 
 def init():

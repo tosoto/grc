@@ -29,6 +29,7 @@ class Plugin:
     type = UNKNOWN_TYPE_MODULE
     handle = ''
     extension = ''
+    language = ''
 
     def __init__( self, name ):
         self.name = name
@@ -38,6 +39,7 @@ class Plugin:
         try:
             self.handle = importlib.import_module( self.name )
             self.extension = self.handle.extension
+            self.language = self.handle.language
             self.type = self.handle.type
         except Exception,e:
             print( "Error in plugin: %s" % self.name )

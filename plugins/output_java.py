@@ -23,6 +23,7 @@ import Scenario
 # type = <value> - please see 'Plugin.py'
 extension = 'java'
 type = 2 # output module
+language = 'java'
 #----------------------------------
 
 output_path = 'Scenarios_Java'

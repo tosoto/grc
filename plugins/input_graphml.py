@@ -26,7 +26,7 @@ import Edge
 
 extension = 'graphml'
 type = 1 # input file
-
+language = 'yed'
 #----------------------------------
 
 edgeList = []

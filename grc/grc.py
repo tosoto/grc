@@ -33,6 +33,7 @@ class GrcClass:
 
 	PYEXCEL_OUTPUT = True
 	outputPlugin = ''
+	outputPluginLang = ''
 	TEST_SCRIPTS_DIR = 'TEST_SCRIPTS'
 	GENERATE_CODE = False
 	GRAPH_NAME = ''
@@ -104,7 +105,8 @@ class GrcClass:
 		parser = argparse.ArgumentParser( description = 'Crawl over provided graph all edges and displayed them as test scenarios' )
 		parser.add_argument( '-i', '--input', type=str, help='GraphML file name, this graph will be analyzed by the program' )
 		parser.add_argument( '-d', '--debug', action = 'store_true', help = 'Enables debug. Do not use it unless you develope program ;)' )
-		parser.add_argument( '-o', '--output', type=str, help = 'File type format to save scenarios. Default it ods.' )
+		parser.add_argument( '-o', '--outputType', type=str, help = 'File type format to save scenarios. Default it ods.' )
+		parser.add_argument( '-e', '--extension', type=str, help='File type extension format to save scenarios. Default it ods.')
 		parser.add_argument( '-s', '--stopatrepeatednode', action = 'store_true', help = 'Stops at repeated node, does not finishes path' )
 		parser.add_argument( '-l', '--listplugins', action = 'store_true', help = 'Lists all available plugins' )
 
@@ -120,10 +122,15 @@ class GrcClass:
 
 		self.stdOut.enableDebug( args.debug )
 
-		if args.output <> None:
-			self.outputPlugin = args.output
+		if args.extension <> None:
+			self.outputPlugin = args.extension
 		else:
 			self.outputPlugin = 'stdOut'
+
+		if args.outputType <> None:
+			self.outputPluginLang = args.outputType
+		else:
+			self.outputPluginLang = 'stdOut'
 
 		self.STOP_AT_REPEATED_NODE = args.stopatrepeatednode
 
@@ -238,7 +245,9 @@ class GrcClass:
 					self.stdOut.printDebug( 'step.node.label: %s' % step.node.label )
 					self.stdOut.printDebug( 'step.node.code: %s' % step.node.code )
 
-		if self.outputPlugin <> 'stdOut':
+		if self.outputPluginLang <> 'stdOut':
+			self.plugin.runByLanguage( self.outputPluginLang, { 'scenarios':self.scenariosList, 'stdOut':self.stdOut})
+		elif self.outputPlugin <> 'stdOut':
  			self.plugin.runByExtension( self.outputPlugin, { 'scenarios':self.scenariosList, 'stdOut':self.stdOut } )
 		else:
 			self.printScenariosOnStdOut()
