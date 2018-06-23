@@ -112,7 +112,7 @@ class GrcClass:
 
         args = parser.parse_args()
 
-        if args.input <> None:
+        if args.input is not None:
             self.GRAPH_NAME = args.input
         else:
             self.GRAPH_NAME = 'examples/browser'
@@ -122,19 +122,19 @@ class GrcClass:
 
         self.stdOut.enableDebug( args.debug )
 
-        if args.extension <> None:
+        if args.extension is not None:
             self.outputPlugin = args.extension
         else:
             self.outputPlugin = 'stdOut'
 
-        if args.outputType <> None:
+        if args.outputType is not None:
             self.outputPluginLang = args.outputType
         else:
             self.outputPluginLang = 'stdOut'
 
         self.STOP_AT_REPEATED_NODE = args.stopatrepeatednode
 
-        if args.listplugins <> None:
+        if args.listplugins is not None:
             self.LIST_PLUGINS = args.listplugins
 
         self.stdOut.printDebug('GRAPH_NAME: %s' % self.GRAPH_NAME )
@@ -245,14 +245,15 @@ class GrcClass:
                     self.stdOut.printDebug( 'step.node.label: %s' % step.node.label )
                     self.stdOut.printDebug( 'step.node.code: %s' % step.node.code )
 
-        if self.outputPluginLang <> 'stdOut':
+        if self.outputPluginLang != 'stdOut':
             self.plugin.runByLanguage( self.outputPluginLang, { 'scenarios':self.scenariosList, 'stdOut':self.stdOut})
-        elif self.outputPlugin <> 'stdOut':
+        elif self.outputPlugin != 'stdOut':
              self.plugin.runByExtension( self.outputPlugin, { 'scenarios':self.scenariosList, 'stdOut':self.stdOut } )
         else:
             self.printScenariosOnStdOut()
 
         self.stdOut.myPrint("--- Crawler finised in %s seconds ---" % ( time.time() - crawlerStartTime ) )
+
 
 if __name__ == '__main__':
     grc = GrcClass()

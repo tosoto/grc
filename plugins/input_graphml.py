@@ -55,7 +55,7 @@ def run( parameters ):
         for dataElement in data:
             nodeType = dataElement.find( 'graphml:GenericNode', ns )
 
-            if nodeType <> None:
+            if nodeType is not None:
                 id = int( node.attrib['id'].strip( 'n' ) )
                 label = nodeType.find( 'graphml:NodeLabel', ns ).text
                 nodeList.append( Node.Node( id, [], label ) )
@@ -65,7 +65,7 @@ def run( parameters ):
         for dataElement in data:
             edgeType =  dataElement.find( 'graphml:PolyLineEdge', ns )
 
-        if edgeType <> None:
+        if edgeType is not None:
             id = int( edge.attrib['id'].strip( 'e' ) )
             source = int( edge.attrib[ 'source' ].strip( 'n' ) )
             target = int( edge.attrib[ 'target' ].strip( 'n' ) )
