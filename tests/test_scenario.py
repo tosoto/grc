@@ -17,39 +17,39 @@
 
 import unittest
 import sys
-sys.path.append( '../grc')
+sys.path.append('../grc')
 import Scenario
 import Step
 
-class TestStringMethod( unittest.TestCase ):
+class TestStringMethod(unittest.TestCase):
 
-    def test_scenario_init( self ):
+    def test_scenario_init(self):
 
-        steps = [ Step.Step( 7, "abc\n\code: ghi", "def\n\code:jkl" ) ]
-        scenario = Scenario.Scenario( 3, "scn", steps )
+        steps = [ Step.Step(7, "abc\n\code: ghi", "def\n\code:jkl") ]
+        scenario = Scenario.Scenario(3, "scn", steps)
 
-        self.assertEqual( scenario.id, 3 )
-        self.assertEqual( scenario.name, "scn" )
-        self.assertEqual( scenario.steps, steps )
-
-
-    def test_scenario_addStep( self ):
-
-        steps = [ Step.Step( 7, "abc\n\code: ghi", "def\n\code:jkl" ) ]
-        scenario = Scenario.Scenario( 3, "scn", steps )
-
-        scenario.addStep( "act", "nod" )
-
-        self.assertEqual( scenario.steps[1].action.description, [ "act" ] )
-        self.assertEqual( scenario.steps[1].node.description, [ "nod" ] )
+        self.assertEqual(scenario.id, 3)
+        self.assertEqual(scenario.name, "scn")
+        self.assertEqual(scenario.steps, steps)
 
 
-    def test_scenario_getSteps( self ):
+    def test_scenario_addStep(self):
 
-        steps = [ Step.Step( 7, "abc\n\code: ghi", "def\n\code:jkl" ) ]
-        scenario = Scenario.Scenario( 3, "scn", steps )
+        steps = [ Step.Step(7, "abc\n\code: ghi", "def\n\code:jkl") ]
+        scenario = Scenario.Scenario(3, "scn", steps)
 
-        self.assertEqual( scenario.getSteps(), [ scenario.steps[0] ] )
+        scenario.addStep("act", "nod")
+
+        self.assertEqual(scenario.steps[1].action.description, [ "act" ])
+        self.assertEqual(scenario.steps[1].node.description, [ "nod" ])
+
+
+    def test_scenario_getSteps(self):
+
+        steps = [ Step.Step(7, "abc\n\code: ghi", "def\n\code:jkl") ]
+        scenario = Scenario.Scenario(3, "scn", steps)
+
+        self.assertEqual(scenario.getSteps(), [ scenario.steps[0] ])
 
 if __name__ == "__main__":
     unittest.main()

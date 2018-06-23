@@ -21,51 +21,51 @@ from Plugin import *
 
 PLUGINS_MAIN_FOLDER = 'plugins'
 PLUGINS_INIT = '__init__.py'
-PLUGINS_INIT_FULL_PATH = '%s/%s' % ( PLUGINS_MAIN_FOLDER, PLUGINS_INIT )
+PLUGINS_INIT_FULL_PATH = '%s/%s' % (PLUGINS_MAIN_FOLDER, PLUGINS_INIT)
 
 class PluginList:
 
     pluginList = []
 
-    def __init__( self ):
+    def __init__(self):
 
-        if not os.path.exists( PLUGINS_MAIN_FOLDER ):
-            os.makedirs( PLUGINS_MAIN_FOLDER )
-        if not os.path.exists( PLUGINS_INIT_FULL_PATH ):
-            open( PLUGINS_INIT_FULL_PATH, 'a' ).close()
+        if not os.path.exists(PLUGINS_MAIN_FOLDER):
+            os.makedirs(PLUGINS_MAIN_FOLDER)
+        if not os.path.exists(PLUGINS_INIT_FULL_PATH):
+            open(PLUGINS_INIT_FULL_PATH, 'a').close()
 
         self.loadPlugins()
 
-    def reloadPlugins( self ):
+    def reloadPlugins(self):
         self.loadPlugins()
 
-    def loadPlugins( self ):
-        potentialPlugins = os.listdir( PLUGINS_MAIN_FOLDER )
-        potentialPlugins.remove( PLUGINS_INIT )
+    def loadPlugins(self):
+        potentialPlugins = os.listdir(PLUGINS_MAIN_FOLDER)
+        potentialPlugins.remove(PLUGINS_INIT)
 
         self.pluginList = []
         for pluginName in potentialPlugins:
-            if not ( PLUGINS_INIT in pluginName ) and not ( 'Plugin.py' in pluginName ):
-                if ( '.py' in pluginName ) and ( not '.pyc' in pluginName ):
-                    pluginName = pluginName.replace( '.py', '' )
-                    self.pluginList.append( Plugin( pluginName ) )
+            if not (PLUGINS_INIT in pluginName) and not ('Plugin.py' in pluginName):
+                if ('.py' in pluginName) and (not '.pyc' in pluginName):
+                    pluginName = pluginName.replace('.py', '')
+                    self.pluginList.append(Plugin(pluginName))
 
-    def listPlugins( self ):
+    def listPlugins(self):
         for plugin in self.pluginList:
-            print( '-----------------------------------------------------------------------------------' )
-            print( 'Plugin: %s\n  Extension: %s\n  Type: %s\n  Language: %s\n  Handle: %s\n' % (plugin.name, plugin.extension, plugin.type, plugin.language, plugin.handle))
+            print('-----------------------------------------------------------------------------------')
+            print('Plugin: %s\n  Extension: %s\n  Type: %s\n  Language: %s\n  Handle: %s\n' % (plugin.name, plugin.extension, plugin.type, plugin.language, plugin.handle))
 
-    def runByName( self, name, parameters ):
+    def runByName(self, name, parameters):
         for plugin in self.pluginList:
             if name == plugin.name:
-                return plugin.handle.run( parameters )
+                return plugin.handle.run(parameters)
         return False
 
-    def runByExtension( self, extension, parameters ):
+    def runByExtension(self, extension, parameters):
         for plugin in self.pluginList:
             if extension == plugin.extension:
-                return plugin.handle.run( parameters )
-        print( "Plugin %s not found!" % extension )
+                return plugin.handle.run(parameters)
+        print("Plugin %s not found!" % extension)
         return False
 
     def runByLanguage(self, language, parameters):

@@ -32,7 +32,7 @@ language = 'yed'
 edgeList = []
 nodeList = []
 
-def run( parameters ):
+def run(parameters):
 
     file_name = parameters['file_name']
     stdOut = parameters['output']
@@ -40,40 +40,40 @@ def run( parameters ):
     ns = { 'xmlns' : 'http://graphml.graphdrawing.org/xmlns', 'graphml' : 'http://www.yworks.com/xml/graphml' }
 
     try:
-        graph = xml.etree.ElementTree.parse( file_name )
+        graph = xml.etree.ElementTree.parse(file_name)
     except IOError,e:
-        stdOut.printError( "Could not open specified file\nDetails:"  + str( e ) )
+        stdOut.printError("Could not open specified file\nDetails:"  + str(e))
 
     graphRoot = graph.getroot()
-    g = graphRoot.find( 'xmlns:graph', ns )
+    g = graphRoot.find('xmlns:graph', ns)
 
-    nodes = g.findall( 'xmlns:node', ns )
-    edges = g.findall( 'xmlns:edge', ns )
+    nodes = g.findall('xmlns:node', ns)
+    edges = g.findall('xmlns:edge', ns)
 
     for node in nodes:
-        data = node.findall( 'xmlns:data', ns )
+        data = node.findall('xmlns:data', ns)
         for dataElement in data:
-            nodeType = dataElement.find( 'graphml:GenericNode', ns )
+            nodeType = dataElement.find('graphml:GenericNode', ns)
 
             if nodeType is not None:
-                id = int( node.attrib['id'].strip( 'n' ) )
-                label = nodeType.find( 'graphml:NodeLabel', ns ).text
-                nodeList.append( Node.Node( id, [], label ) )
+                id = int(node.attrib['id'].strip('n'))
+                label = nodeType.find('graphml:NodeLabel', ns).text
+                nodeList.append(Node.Node(id, [], label))
 
     for edge in edges:
-        data = edge.findall( 'xmlns:data', ns )
+        data = edge.findall('xmlns:data', ns)
         for dataElement in data:
-            edgeType =  dataElement.find( 'graphml:PolyLineEdge', ns )
+            edgeType =  dataElement.find('graphml:PolyLineEdge', ns)
 
         if edgeType is not None:
-            id = int( edge.attrib['id'].strip( 'e' ) )
-            source = int( edge.attrib[ 'source' ].strip( 'n' ) )
-            target = int( edge.attrib[ 'target' ].strip( 'n' ) )
-            label = edgeType.find( 'graphml:EdgeLabel', ns ).text
+            id = int(edge.attrib['id'].strip('e'))
+            source = int(edge.attrib[ 'source' ].strip('n'))
+            target = int(edge.attrib[ 'target' ].strip('n'))
+            label = edgeType.find('graphml:EdgeLabel', ns).text
 
-            edgeList.append( Edge.Edge( source, target, label ) )
-            nodeList[ source ].relatedNodes.append( target )
+            edgeList.append(Edge.Edge(source, target, label))
+            nodeList[ source ].relatedNodes.append(target)
         else:
-            stdOut.printDebug( "EDGE NOT KNOWN: \n[ %s, %s, %s, %s, %s ]" % ( edgeType, id, source, target, label ) )
+            stdOut.printDebug("EDGE NOT KNOWN: \n[ %s, %s, %s, %s, %s ]" % (edgeType, id, source, target, label))
 
     return edgeList, nodeList

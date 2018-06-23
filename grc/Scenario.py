@@ -22,16 +22,16 @@ class Scenario:
     name = None
     steps = []
 
-    def __init__( self, id, name, steps ):
+    def __init__(self, id, name, steps):
         self.id = id
         self.name = name
         self.steps = steps
 
-    def __str__( self ):
-        return str( self.__dict__ )
+    def __str__(self):
+        return str(self.__dict__)
 
-    def addStep( self, actionDescription, stateDescription ):
-        self.steps.append( Step.Step( len( self.steps ), actionDescription, stateDescription ) )
+    def addStep(self, actionDescription, stateDescription):
+        self.steps.append(Step.Step(len(self.steps), actionDescription, stateDescription))
 
-    def getSteps( self ):
+    def getSteps(self):
         return self.steps

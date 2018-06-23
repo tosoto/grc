@@ -17,20 +17,20 @@
 
 import unittest
 import sys
-sys.path.append( '../grc')
+sys.path.append('../grc')
 import Edge
 
-class TestStringMethod( unittest.TestCase ):
+class TestStringMethod(unittest.TestCase):
 
-    def test_edge_init( self ):
+    def test_edge_init(self):
 
-        edge = Edge.Edge( 1, 2, "lab" )
+        edge = Edge.Edge(1, 2, "lab")
 
-        self.assertEqual( edge.sourceNode, 1 )
-        self.assertEqual( edge.destinationNode, 2 )
-        self.assertEqual( edge.label, "lab" )
+        self.assertEqual(edge.sourceNode, 1)
+        self.assertEqual(edge.destinationNode, 2)
+        self.assertEqual(edge.label, "lab")
 
-        self.assertEqual( str( edge ), "{'destinationNode': 2, 'sourceNode': 1, 'label': 'lab'}" )
+        self.assertEqual(str(edge), "{'destinationNode': 2, 'sourceNode': 1, 'label': 'lab'}")
 
 if __name__ == "__main__":
     unittest.main()

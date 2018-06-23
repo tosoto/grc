@@ -17,41 +17,41 @@
 
 import unittest
 import sys
-sys.path.append( '../grc')
+sys.path.append('../grc')
 import Output
 
-class TestStringMethod( unittest.TestCase ):
+class TestStringMethod(unittest.TestCase):
 
-    def test_output_init( self ):
+    def test_output_init(self):
         try:
             Output.Output()
         except:
-            self.assertEqual( 1, '"OutputClass" initialization failed' )
+            self.assertEqual(1, '"OutputClass" initialization failed')
 
 
-    def test_output_enableDebug( self ):
-
-        output = Output.Output()
-
-        output.enableDebug( True )
-        self.assertEqual( output.debugFlag, True )
-
-        output.enableDebug( False )
-        self.assertEqual( output.debugFlag, False )
-
-
-    def test_output_enableTerminalOutput( self ):
+    def test_output_enableDebug(self):
 
         output = Output.Output()
 
-        output.enableTerminalOutput( True )
-        self.assertEqual( output.terminalOutput, True )
+        output.enableDebug(True)
+        self.assertEqual(output.debugFlag, True)
 
-        output.enableTerminalOutput( False )
-        self.assertEqual( output.terminalOutput, False )
+        output.enableDebug(False)
+        self.assertEqual(output.debugFlag, False)
 
 
-    def test_output_clearConsoleOut( self ):
+    def test_output_enableTerminalOutput(self):
+
+        output = Output.Output()
+
+        output.enableTerminalOutput(True)
+        self.assertEqual(output.terminalOutput, True)
+
+        output.enableTerminalOutput(False)
+        self.assertEqual(output.terminalOutput, False)
+
+
+    def test_output_clearConsoleOut(self):
 
         output = Output.Output()
 
@@ -59,75 +59,75 @@ class TestStringMethod( unittest.TestCase ):
 
         output.clearConsoleOut()
 
-        self.assertEqual( output.consoleOut, '' )
+        self.assertEqual(output.consoleOut, '')
 
 
-    def test_output_getConsole( self ):
+    def test_output_getConsole(self):
 
         output = Output.Output()
 
         output.consoleOut = 'abc'
 
-        self.assertEqual( output.getConsole(), 'abc' )
+        self.assertEqual(output.getConsole(), 'abc')
 
 
 
-    def test_output_myPrint( self ):
-
-        output = Output.Output()
-        output.enableTerminalOutput( False )
-
-        output.myPrint( 'abc' )
-
-        self.assertEqual( output.consoleOut, 'abc' )
-
-
-    def test_output_printDebug( self ):
+    def test_output_myPrint(self):
 
         output = Output.Output()
-        output.enableTerminalOutput( False )
+        output.enableTerminalOutput(False)
 
-        output.enableDebug( False )
-        output.printDebug( 'abc' )
+        output.myPrint('abc')
 
-        self.assertEqual( output.consoleOut, '' )
-
-        output.enableDebug( True )
-        output.printDebug( 'def' )
-
-        self.assertEqual( output.consoleOut, 'def' )
+        self.assertEqual(output.consoleOut, 'abc')
 
 
-    def test_output_printWarning( self ):
+    def test_output_printDebug(self):
 
         output = Output.Output()
-        output.enableTerminalOutput( False )
+        output.enableTerminalOutput(False)
 
-        output.enableDebug( False )
-        output.printWarning( 'abc' )
+        output.enableDebug(False)
+        output.printDebug('abc')
 
-        self.assertEqual( output.consoleOut, 'Warning: abc\n' )
+        self.assertEqual(output.consoleOut, '')
 
-        output.enableDebug( True )
-        output.printWarning( 'def' )
+        output.enableDebug(True)
+        output.printDebug('def')
 
-        self.assertEqual( output.consoleOut, 'Warning: abc\nWarning: def\n' )
+        self.assertEqual(output.consoleOut, 'def')
 
 
-    def test_output_printError( self ):
+    def test_output_printWarning(self):
 
         output = Output.Output()
-        output.enableTerminalOutput( False )
+        output.enableTerminalOutput(False)
+
+        output.enableDebug(False)
+        output.printWarning('abc')
+
+        self.assertEqual(output.consoleOut, 'Warning: abc\n')
+
+        output.enableDebug(True)
+        output.printWarning('def')
+
+        self.assertEqual(output.consoleOut, 'Warning: abc\nWarning: def\n')
+
+
+    def test_output_printError(self):
+
+        output = Output.Output()
+        output.enableTerminalOutput(False)
 
         sys_exit = False
 
         try:
-            output.printError( 'abc' )
+            output.printError('abc')
         except SystemExit:
             sys_exit = True
 
-        self.assertEqual( sys_exit, True )
-        self.assertEqual( output.consoleOut, 'ERROR: abc' )
+        self.assertEqual(sys_exit, True)
+        self.assertEqual(output.consoleOut, 'ERROR: abc')
 
 
 if __name__ == '__main__':

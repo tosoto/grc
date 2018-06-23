@@ -22,35 +22,35 @@ class Step:
         label = ''
         code = ''
 
-        def __init__( self, description ):
-            self.description = description.split( '\n' )
+        def __init__(self, description):
+            self.description = description.split('\n')
             for line in self.description:
                 if '\code:' in line:
-                    self.addCodeLine( line.replace( '\code:', '' ) )
+                    self.addCodeLine(line.replace('\code:', ''))
                 else:
-                    self.addLabelLine( line )
+                    self.addLabelLine(line)
 
             self.label = self.label[:-1]
             self.code = self.code[:-1]
 
-        def __str__( self ):
-            return str( self.__dict__ )
+        def __str__(self):
+            return str(self.__dict__)
 
-        def addCodeLine( self, line ):
+        def addCodeLine(self, line):
             self.code = self.code + line + '\n'
 
-        def addLabelLine( self, line ):
+        def addLabelLine(self, line):
             self.label = self.label + line + '\n'
 
     id = 1
     action = None
     node = None
 
-    def __init__( self, id, actionDescription, stateDescription ):
+    def __init__(self, id, actionDescription, stateDescription):
         self.id = id
 
-        self.action = self.StepObj( actionDescription )
-        self.node = self.StepObj( stateDescription )
+        self.action = self.StepObj(actionDescription)
+        self.node = self.StepObj(stateDescription)
 
-    def __str__( self ):
-        return str( self.__dict__ )
+    def __str__(self):
+        return str(self.__dict__)

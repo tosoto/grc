@@ -19,13 +19,13 @@ class Edge:
     destinationNode = None
     label = ''
 
-    def __init__(self, sourceNode, destinationNode, label ):
+    def __init__(self, sourceNode, destinationNode, label):
         self.sourceNode = sourceNode
         self.destinationNode = destinationNode
         self.label = label
 
-    def __str__( self ):
-        return str( self.__dict__ )
+    def __str__(self):
+        return str(self.__dict__)
 
-    def __eq__( self, other ):
+    def __eq__(self, other):
         return self.__dict__ == other.__dict__

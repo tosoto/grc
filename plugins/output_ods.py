@@ -28,7 +28,7 @@ type = 2 # output module
 language = 'libreoffice_calc'
 #----------------------------------
 
-def run( parameters ):
+def run(parameters):
     stdOut = parameters['stdOut']
     scenarios = parameters['scenarios']
 
@@ -37,7 +37,7 @@ def run( parameters ):
     try:
         import pyexcel_ods
     except:
-        stdOut.printError( "Couldn't import pyexcel-ods - scnearios export to the ods format would not be possible\nPlease install pyexcel-ods" )
+        stdOut.printError("Couldn't import pyexcel-ods - scnearios export to the ods format would not be possible\nPlease install pyexcel-ods")
 
     data = collections.OrderedDict()
     exportSheetSteps = [ ['Scenario name','Step', 'Action', 'State'] ]
@@ -47,11 +47,11 @@ def run( parameters ):
         scenarioSteps = [['Step', 'Action', 'State']]
 
         for step in scenario.steps:
-            scenarioSteps.append( [ step.id, step.action.label, step.node.label ] )
-            exportSheetSteps.append( [ 'Scenaio %s' % scenario.id, step.id, step.action.label, step.node.label ] )
+            scenarioSteps.append([ step.id, step.action.label, step.node.label ])
+            exportSheetSteps.append([ 'Scenaio %s' % scenario.id, step.id, step.action.label, step.node.label ])
 
-        data.update( { 'Scenario %s' % scenario.id : scenarioSteps } )
+        data.update({ 'Scenario %s' % scenario.id : scenarioSteps })
 
-    data.update( { 'Export sheet' : exportSheetSteps } )
-    pyexcel_ods.save_data( outName, data )
-    stdOut.myPrint( '%s scenarios saved to "%s"' % ( len( scenarios ), outName ) )
+    data.update({ 'Export sheet' : exportSheetSteps })
+    pyexcel_ods.save_data(outName, data)
+    stdOut.myPrint('%s scenarios saved to "%s"' % (len(scenarios), outName))

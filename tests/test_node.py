@@ -17,33 +17,33 @@
 
 import unittest
 import sys
-sys.path.append( '../grc')
+sys.path.append('../grc')
 import Node
 
-class TestStringMethod( unittest.TestCase ):
+class TestStringMethod(unittest.TestCase):
 
-    def test_node_init( self ):
+    def test_node_init(self):
 
-        node = Node.Node( 2, [5,6], 'test node' )
+        node = Node.Node(2, [5,6], 'test node')
 
-        self.assertEqual( node.id, 2 )
-        self.assertEqual( node.relatedNodes, [ 5, 6 ] )
-        self.assertEqual( node.label, 'test node' )
+        self.assertEqual(node.id, 2)
+        self.assertEqual(node.relatedNodes, [ 5, 6 ])
+        self.assertEqual(node.label, 'test node')
 
-    def test_node_str( self ):
+    def test_node_str(self):
 
-        node = Node.Node( 2, [5,6], 'test node' )
+        node = Node.Node(2, [5,6], 'test node')
 
-        self.assertEqual( str( node ), "{'relatedNodes': [5, 6], 'id': 2, 'label': 'test node'}" )
+        self.assertEqual(str(node), "{'relatedNodes': [5, 6], 'id': 2, 'label': 'test node'}")
 
-    def test_node_eq( self ):
+    def test_node_eq(self):
 
-        node1 = Node.Node( 2, [5,6], 'test node' )
-        node2 = Node.Node( 2, [5,6], 'test node' )
-        node3 = Node.Node( 2, [5,6], 'different test node' )
+        node1 = Node.Node(2, [5,6], 'test node')
+        node2 = Node.Node(2, [5,6], 'test node')
+        node3 = Node.Node(2, [5,6], 'different test node')
 
-        self.assertEqual( node1 == node2, True )
-        self.assertEqual( node1 == node3, False )
+        self.assertEqual(node1 == node2, True)
+        self.assertEqual(node1 == node3, False)
 
 if __name__ == '__main__':
     unittest.main()

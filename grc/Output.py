@@ -22,34 +22,34 @@ class Output:
     debugFlag = False
     terminalOutput = True
 
-    def enableDebug( self, state ):
-        assert type( state ) is types.BooleanType, 'state must be a bool'
+    def enableDebug(self, state):
+        assert type(state) is types.BooleanType, 'state must be a bool'
         self.debugFlag = state
 
-    def enableTerminalOutput( self, state ):
-        assert type( state ) is types.BooleanType, 'state must be a bool'
+    def enableTerminalOutput(self, state):
+        assert type(state) is types.BooleanType, 'state must be a bool'
         self.terminalOutput = state
 
-    def clearConsoleOut( self ):
+    def clearConsoleOut(self):
         self.consoleOut = ''
 
-    def getConsole( self ):
+    def getConsole(self):
         return self.consoleOut
 
-    def myPrint( self, text ):
-        text = str( text )
+    def myPrint(self, text):
+        text = str(text)
         if self.terminalOutput:
-            print( text )
+            print(text)
         else:
             self.consoleOut = self.consoleOut + text
 
-    def printDebug( self, text ):
+    def printDebug(self, text):
         if self.debugFlag:
-            self.myPrint( text )
+            self.myPrint(text)
 
-    def printError( self, text ):
-        self.myPrint( "ERROR: %s" % text )
+    def printError(self, text):
+        self.myPrint("ERROR: %s" % text)
         quit()
 
-    def printWarning( self, text ):
-        self.myPrint( "Warning: %s\n" % text )
+    def printWarning(self, text):
+        self.myPrint("Warning: %s\n" % text)

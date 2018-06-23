@@ -31,20 +31,20 @@ class Plugin:
     extension = ''
     language = ''
 
-    def __init__( self, name ):
+    def __init__(self, name):
         self.name = name
 
-        sys.path.append( 'plugins/' )
+        sys.path.append('plugins/')
 
         try:
-            self.handle = importlib.import_module( self.name )
+            self.handle = importlib.import_module(self.name)
             self.extension = self.handle.extension
             self.language = self.handle.language
             self.type = self.handle.type
         except Exception,e:
-            print( "Error in plugin: %s" % self.name )
-            print( e )
+            print("Error in plugin: %s" % self.name)
+            print(e)
             quit()
 
-    def run( self, parameters ):
-        self.handle.run( parameters )
+    def run(self, parameters):
+        self.handle.run(parameters)
