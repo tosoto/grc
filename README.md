@@ -3,7 +3,7 @@ Grc is support tool for model based testing.
 
 ## Synopsis
 ```
-grc.sh -i [file] -o [module_name] [option]
+grc.sh -i [file] -o [type] [option]
 ```
 
 ## Description
@@ -13,17 +13,14 @@ This tool for now is a simple graph crawler walking on all graph edges and conve
   - -i, --input  
     - Obligatory graph file name - this graph will be analyzed by the program
 
-  - -o, --output
-    - File type format to save scenarios - depends on plugins. Currently supported plugins (default is ods):
-      - txt
-        - converts output to text scenarios. only description is saved
-      - py  
-        - converts output to python scripts. both code, descriptions are saved
-      - ods
-        - converts output to ods sheet - only description is saved
+  - -o, --outputType 
+    - please refer to plugin list
+
+  - -e, --extension 
+    - please refer to plugin list
 
   - -s, --stopatrepeatednode
-    - Stops at repeated node, does not finishes path
+    - Stops at repeated node, does not finish path
 
   - -l, --listplugins  
     - Lists all available plugins
@@ -33,22 +30,73 @@ This tool for now is a simple graph crawler walking on all graph edges and conve
 
   - -d, --debug  
     - Enables debug
+    
+## Plugins
+
+### Input file read
+- yed
+  - Plugin: input_graphml
+  - Extension: graphml
+  - Type: None
+  - usage: ```grc.sh``` (default input plugin, no parameter needed)
+  
+### Output - automatic code generation
+- Python
+  - Plugin: output_python
+  - Extension: py
+  - Type: python
+  - Usage: ```grl.sh -o python```
+
+- C++
+  - Plugin: output_cpp
+  - Extension: cpp
+  - Type: cpp
+  - Usage: ```grl.sh -o cpp```
+
+- C
+  - Plugin: output_c
+  - Extension: c
+  - Type: c
+  - Usage: ```grl.sh -o c```
+
+- JavaScript
+  - Plugin: output_javascript
+  - Extension: html
+  - Type: javascript
+  - Usage: ```grl.sh -o javascript```
+
+- Manual tests
+  - Plugin: output_txt
+  - Extension: txt
+  - Type: manual
+  - Usage: ```grl.sh -o manual```
+
+- Java
+  - Plugin: output_java
+  - Extension: java
+  - Type: java
+  - Usage: ```grl.sh -o java```
+
+- LibreOffice Calc sheet - manual tests
+  - Plugin: output_ods
+  - Extension: ods
+  - Type: libreoffice_calc
+  - Usage: ```grl.sh -o libreoffice_calc```
+
 
 ## Usage
-Load example graph and save scenarios as text files:
+By default grc loads 'examples/browser' file. There is no need to provide 'graphml' extension.
 ```
-grc.sh -i examples/browser -o txt
-```
-
-Load example graph and save scenarios as python scripts:
-```
-grc.sh -i examples/browser -o py
+grc.sh
 ```
 
-Load example graph and save scenarios as ods sheet:
+To provide input file and write LibreOffice output for manual tests:
 ```
-grc.sh -i examples/browser -o ods
+grc.sh -i examples/browser -o libreoffice_calc
 ```
+
+Depending on selected output plugin results can be in file or direcotry. Please check the grc direcotry to find
+results.
 
 ## Self testing
 Please enter to the grc/tests and execute:
