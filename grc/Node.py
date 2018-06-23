@@ -16,17 +16,17 @@
 
 
 class Node:
-	id = None
-	relatedNodes = []
-	label = ''
+    id = None
+    relatedNodes = []
+    label = ''
 
-	def __init__( self, id, relatedNodes, label ):
-		self.id = id
-		self.relatedNodes = relatedNodes
-		self.label = label
+    def __init__( self, id, relatedNodes, label ):
+        self.id = id
+        self.relatedNodes = relatedNodes
+        self.label = label
 
-	def __str__( self ):
-		return str( self.__dict__ )
+    def __str__( self ):
+        return str( self.__dict__ )
 
-	def __eq__( self, other ):
-		return self.__dict__ == other.__dict__
+    def __eq__( self, other ):
+        return self.__dict__ == other.__dict__

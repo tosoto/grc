@@ -18,38 +18,38 @@
 import types
 
 class Output:
-	consoleOut = ''
-	debugFlag = False
-	terminalOutput = True
+    consoleOut = ''
+    debugFlag = False
+    terminalOutput = True
 
-	def enableDebug( self, state ):
-		assert type( state ) is types.BooleanType, 'state must be a bool'
-		self.debugFlag = state
+    def enableDebug( self, state ):
+        assert type( state ) is types.BooleanType, 'state must be a bool'
+        self.debugFlag = state
 
-	def enableTerminalOutput( self, state ):
-		assert type( state ) is types.BooleanType, 'state must be a bool'
-		self.terminalOutput = state
+    def enableTerminalOutput( self, state ):
+        assert type( state ) is types.BooleanType, 'state must be a bool'
+        self.terminalOutput = state
 
-	def clearConsoleOut( self ):
-		self.consoleOut = ''
+    def clearConsoleOut( self ):
+        self.consoleOut = ''
 
-	def getConsole( self ):
-		return self.consoleOut
+    def getConsole( self ):
+        return self.consoleOut
 
-	def myPrint( self, text ):
-		text = str( text )
-		if self.terminalOutput:
-			print( text )
-		else:
-			self.consoleOut = self.consoleOut + text
+    def myPrint( self, text ):
+        text = str( text )
+        if self.terminalOutput:
+            print( text )
+        else:
+            self.consoleOut = self.consoleOut + text
 
-	def printDebug( self, text ):
-		if self.debugFlag:
-			self.myPrint( text )
+    def printDebug( self, text ):
+        if self.debugFlag:
+            self.myPrint( text )
 
-	def printError( self, text ):
-		self.myPrint( "ERROR: %s" % text )
-		quit()
+    def printError( self, text ):
+        self.myPrint( "ERROR: %s" % text )
+        quit()
 
-	def printWarning( self, text ):
-		self.myPrint( "Warning: %s\n" % text )
+    def printWarning( self, text ):
+        self.myPrint( "Warning: %s\n" % text )
