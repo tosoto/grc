@@ -218,6 +218,7 @@ class GrcClass:
 
         if self.LIST_PLUGINS:
             self.plugin.listPlugins()
+            quit()
 
         self.stdOut.printDebug('GRAPH_NAME: %s' % self.GRAPH_NAME)
 

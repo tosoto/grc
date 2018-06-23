@@ -53,7 +53,7 @@ class PluginList:
     def listPlugins(self):
         for plugin in self.pluginList:
             print('-----------------------------------------------------------------------------------')
-            print('Plugin: %s\n  Extension: %s\n  Type: %s\n  Language: %s\n  Handle: %s\n' % (plugin.name, plugin.extension, plugin.type, plugin.language, plugin.handle))
+            print('Plugin: %s\n  Extension: %s\n  Type: %s\n  Language: %s' % (plugin.name, plugin.extension, plugin.type, plugin.language))
 
     def runByName(self, name, parameters):
         for plugin in self.pluginList:
