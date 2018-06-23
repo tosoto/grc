@@ -11,13 +11,15 @@ This tool for now is a simple graph crawler walking on all graph edges and conve
 
 ## Options
   - -i, --input  
-    - Obligatory graph file name - this graph will be analyzed by the program
+    - Graph file path
 
   - -o, --outputType 
-    - please refer to plugin list
+    - Plugin type to be used to generate output. Full list of available plugins is described below 
+      in 'Output - automatic code generation' section.
 
   - -e, --extension 
-    - please refer to plugin list
+    - Grc can determine the plugin by the file extension. However it is not recommended.
+      To choose output type please use '-o' option described above.
 
   - -s, --stopatrepeatednode
     - Stops at repeated node, does not finish path
@@ -45,43 +47,43 @@ This tool for now is a simple graph crawler walking on all graph edges and conve
   - Plugin: output_python
   - Extension: py
   - Type: python
-  - Usage: ```grl.sh -o python```
+  - Usage: ```grc.sh -o python```
 
 - C++
   - Plugin: output_cpp
   - Extension: cpp
   - Type: cpp
-  - Usage: ```grl.sh -o cpp```
+  - Usage: ```grc.sh -o cpp```
 
 - C
   - Plugin: output_c
   - Extension: c
   - Type: c
-  - Usage: ```grl.sh -o c```
+  - Usage: ```grc.sh -o c```
 
 - JavaScript
   - Plugin: output_javascript
   - Extension: html
   - Type: javascript
-  - Usage: ```grl.sh -o javascript```
+  - Usage: ```grc.sh -o javascript```
 
 - Manual tests
   - Plugin: output_txt
   - Extension: txt
   - Type: manual
-  - Usage: ```grl.sh -o manual```
+  - Usage: ```grc.sh -o manual```
 
 - Java
   - Plugin: output_java
   - Extension: java
   - Type: java
-  - Usage: ```grl.sh -o java```
+  - Usage: ```grc.sh -o java```
 
 - LibreOffice Calc sheet - manual tests
   - Plugin: output_ods
   - Extension: ods
   - Type: libreoffice_calc
-  - Usage: ```grl.sh -o libreoffice_calc```
+  - Usage: ```grc.sh -o libreoffice_calc```
 
 
 ## Usage
