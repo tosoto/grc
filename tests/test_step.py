@@ -35,7 +35,7 @@ class TestStringMethod(unittest.TestCase):
 
         stepObj = Step.Step.StepObj('')
 
-        stepObj.addCodeLine('cod')
+        stepObj.add_code_line('cod')
 
         self.assertEqual(stepObj.code, 'cod\n')
 
@@ -44,7 +44,7 @@ class TestStringMethod(unittest.TestCase):
 
         stepObj = Step.Step.StepObj('')
 
-        stepObj.addLabelLine('lab')
+        stepObj.add_label_line('lab')
 
         self.assertEqual(stepObj.label, 'lab\n')
 

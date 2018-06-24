@@ -16,12 +16,12 @@
 
 
 import os
-import importlib
 from Plugin import *
 
 PLUGINS_MAIN_FOLDER = 'plugins'
 PLUGINS_INIT = '__init__.py'
 PLUGINS_INIT_FULL_PATH = '%s/%s' % (PLUGINS_MAIN_FOLDER, PLUGINS_INIT)
+
 
 class PluginList:
 
@@ -34,49 +34,51 @@ class PluginList:
         if not os.path.exists(PLUGINS_INIT_FULL_PATH):
             open(PLUGINS_INIT_FULL_PATH, 'a').close()
 
-        self.loadPlugins()
+        self.load_plugins()
 
-    def reloadPlugins(self):
-        self.loadPlugins()
+    def reload_plugins(self):
+        self.load_plugins()
 
-    def loadPlugins(self):
-        potentialPlugins = os.listdir(PLUGINS_MAIN_FOLDER)
-        potentialPlugins.remove(PLUGINS_INIT)
+    def load_plugins(self):
+        potential_plugins = os.listdir(PLUGINS_MAIN_FOLDER)
+        potential_plugins.remove(PLUGINS_INIT)
 
         self.pluginList = []
-        for pluginName in potentialPlugins:
-            if not (PLUGINS_INIT in pluginName) and not ('Plugin.py' in pluginName):
-                if ('.py' in pluginName) and (not '.pyc' in pluginName):
-                    pluginName = pluginName.replace('.py', '')
-                    self.pluginList.append(Plugin(pluginName))
+        for plugin_name in potential_plugins:
+            if not (PLUGINS_INIT in plugin_name) and not ('Plugin.py' in plugin_name):
+                if ('.py' in plugin_name) and ('.pyc' not in plugin_name):
+                    plugin_name = plugin_name.replace('.py', '')
+                    self.pluginList.append(Plugin(plugin_name))
 
-    def listPlugins(self):
+    def list_plugins(self):
         for plugin in sorted(self.pluginList, key=lambda x: x.name):
             print('-----------------------------------------------------------------------------------')
             print('Plugin: %s\n  Extension: %s\n  Type: %s\n  Language: %s' % (plugin.name, plugin.extension, plugin.type, plugin.language))
 
-    def runByName(self, name, parameters):
+    def run_by_name(self, name, parameters):
         for plugin in self.pluginList:
             if name == plugin.name:
                 return plugin.handle.run(parameters)
         return False
 
-    def runByExtension(self, extension, parameters):
+    def run_by_extension(self, extension, parameters):
         for plugin in self.pluginList:
             if extension == plugin.extension:
                 return plugin.handle.run(parameters)
         print("Plugin %s not found!" % extension)
         return False
 
-    def runByLanguage(self, language, parameters):
+    def run_by_language(self, language, parameters):
         for plugin in self.pluginList:
             if language == plugin.language:
                 return plugin.handle.run(parameters)
         print("Plugin for language %s not found!" % language)
         return False
 
+
 def init():
     return PluginList()
+
 
 if __name__ == '__main__':
     pluginList = init()

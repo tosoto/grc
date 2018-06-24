@@ -40,18 +40,18 @@ def run(parameters):
         stdOut.print_error("Couldn't import pyexcel-ods - scnearios export to the ods format would not be possible\nPlease install pyexcel-ods")
 
     data = collections.OrderedDict()
-    exportSheetSteps = [ ['Scenario name','Step', 'Action', 'State'] ]
+    exportSheetSteps = [['Scenario name','Step', 'Action', 'State']]
 
     for scenario in scenarios:
 
         scenarioSteps = [['Step', 'Action', 'State']]
 
         for step in scenario.steps:
-            scenarioSteps.append([ step.id, step.action.label, step.node.label ])
-            exportSheetSteps.append([ 'Scenaio %s' % scenario.id, step.id, step.action.label, step.node.label ])
+            scenarioSteps.append([step.id, step.action.label, step.node.label])
+            exportSheetSteps.append(['Scenaio %s' % scenario.id, step.id, step.action.label, step.node.label])
 
-        data.update({ 'Scenario %s' % scenario.id : scenarioSteps })
+        data.update({'Scenario %s' % scenario.id : scenarioSteps})
 
-    data.update({ 'Export sheet' : exportSheetSteps })
+    data.update({'Export sheet' : exportSheetSteps})
     pyexcel_ods.save_data(outName, data)
     stdOut.my_print('%s scenarios saved to "%s"' % (len(scenarios), outName))

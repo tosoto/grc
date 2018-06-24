@@ -26,9 +26,9 @@ class Step:
             self.description = description.split('\n')
             for line in self.description:
                 if '\code:' in line:
-                    self.addCodeLine(line.replace('\code:', ''))
+                    self.add_code_line(line.replace('\code:', ''))
                 else:
-                    self.addLabelLine(line)
+                    self.add_label_line(line)
 
             self.label = self.label[:-1]
             self.code = self.code[:-1]
@@ -36,21 +36,21 @@ class Step:
         def __str__(self):
             return str(self.__dict__)
 
-        def addCodeLine(self, line):
+        def add_code_line(self, line):
             self.code = self.code + line + '\n'
 
-        def addLabelLine(self, line):
+        def add_label_line(self, line):
             self.label = self.label + line + '\n'
 
     id = 1
     action = None
     node = None
 
-    def __init__(self, id, actionDescription, stateDescription):
+    def __init__(self, id, action_description, state_description):
         self.id = id
 
-        self.action = self.StepObj(actionDescription)
-        self.node = self.StepObj(stateDescription)
+        self.action = self.StepObj(action_description)
+        self.node = self.StepObj(state_description)
 
     def __str__(self):
         return str(self.__dict__)

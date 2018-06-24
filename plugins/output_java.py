@@ -66,7 +66,7 @@ def run(parameters):
                 for nodeCodeLine in step.node.code.split('\n'):
                     scenario_file.write('        %s\n' % nodeCodeLine)
 
-        scenario_file.write('    }\n')
+        scenario_file.write('   }\n')
         scenario_file.write('}')
 
         scenario_file.close()

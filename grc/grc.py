@@ -28,6 +28,7 @@ from Node import *
 from Step import *
 from Scenario import *
 
+
 class GrcClass:
     stdOut = Output()
 
@@ -51,57 +52,56 @@ class GrcClass:
 
     plugin = ''
 
-
-    def enableTerminalOutput(self, state):
-        assert type(state) == types.BooleanType, '"state" must be boolean type'
+    def enable_terminal_output(self, state):
+        assert isinstance(state, bool), '"state" must be bool type'
         self.stdOut.enable_terminal_output(state)
 
-    def edgeLabel(self, sourceNode, destinationNode):
+    def edge_label(self, source_node, destination_node):
         for edge in self.edgeList:
-            if (sourceNode == edge.sourceNode) and (destinationNode == edge.destinationNode):
+            if (source_node == edge.sourceNode) and (destination_node == edge.destinationNode):
                 return edge.label
         return ''
 
-    def getNodeLabel(self, id):
+    def get_node_label(self, _id):
         for node in self.nodeList:
-            if node.id == id:
+            if node.id == _id:
                 return node.label
 
-    def findStartEndNodes(self):
+    def find_start_end_nodes(self):
 
         for node in self.nodeList:
             if node.label == 'Start':
                 self.startNode.append(node.id)
                 self.stdOut.print_debug("Start node id: %s" % self.startNode[-1])
-            if node.relatedNodes == []:
+            if not node.relatedNodes:
                 self.endNode.append(node.id)
                 self.stdOut.print_debug('End node id: %s' % self.endNode[-1])
 
-    def generatePaths(self):
+    def generate_paths(self):
 
         for singleStartNode in self.startNode:
-            self.pathList.append([ singleStartNode ])
+            self.pathList.append([singleStartNode])
 
         self.stdOut.print_debug('Path list: + ' + str(self.pathList))
 
         for x in range(0, len(self.pathList)):
-            self.addPath(x)
+            self.add_path(x)
 
         self.stdOut.print_debug(self.pathList)
 
-    def printScenariosOnStdOut(self):
+    def print_scenarios_on_std_out(self):
         for pathId in range(0, len(self.pathList)):
             self.stdOut.my_print("Scenario: %s" % (pathId + 1))
             self.stdOut.my_print("Step\t|\tAction \t\t\t|\tState")
             step = 1
-            sourceNode = None
-            for nodeId in self.pathList[ pathId ]:
-                self.stdOut.my_print("Step: %s\t|\t%s\t|\t%s" % (step, self.edgeLabel(sourceNode, nodeId), self.getNodeLabel(nodeId)))
+            source_node = None
+            for nodeId in self.pathList[pathId]:
+                self.stdOut.my_print("Step: %s\t|\t%s\t|\t%s" % (step, self.edge_label(source_node, nodeId), self.get_node_label(nodeId)))
                 step = step + 1
-                sourceNode = nodeId
+                source_node = nodeId
             self.stdOut.my_print('**************************************************************************************************')
 
-    def parseCmdParams(self):
+    def parse_cmd_params(self):
         parser = argparse.ArgumentParser(description = 'Crawl over provided graph all edges and displayed them as test scenarios')
         parser.add_argument('-i', '--input', type=str, help='GraphML file name, this graph will be analyzed by the program')
         parser.add_argument('-d', '--debug', action = 'store_true', help = 'Enables debug. Do not use it unless you develope program ;)')
@@ -117,7 +117,7 @@ class GrcClass:
         else:
             self.GRAPH_NAME = 'examples/browser'
 
-        if not 'graphml' in self.GRAPH_NAME:
+        if 'graphml' not in self.GRAPH_NAME:
             self.GRAPH_NAME = self.GRAPH_NAME + '.graphml'
 
         self.stdOut.enable_debug(args.debug)
@@ -139,33 +139,34 @@ class GrcClass:
 
         self.stdOut.print_debug('GRAPH_NAME: %s' % self.GRAPH_NAME)
 
-    def getNodeListFromGraphFile(self):
+    def get_node_list_from_graph_file(self):
+        extension = self.GRAPH_NAME.split('.')[1]
+        params = {'file_name': self.GRAPH_NAME, 'output': self.stdOut}
+        self.edgeList, self.nodeList = self.plugin.run_by_extension(extension, params)
 
-        self.edgeList, self.nodeList = self.plugin.runByExtension(self.GRAPH_NAME.split('.')[1], { 'file_name':self.GRAPH_NAME, 'output':self.stdOut })
+    def add_path(self, path_list_pointer):
 
-    def addPath(self, pathListPointer):
+        node = self.pathList[path_list_pointer][-1]
 
-        node = self.pathList[ pathListPointer ][-1]
+        self.stdOut.print_debug("1: addPath: node: %s pointer: %s" % (node, path_list_pointer))
+        self.stdOut.print_debug("2:path list: %s" % self.pathList)
 
-        self.stdOut.print_debug("1: addPath: node: %s pointer: %s" % (node, pathListPointer))
-        self.stdOut.print_debug("2:path list: %s" % (self.pathList))
+        for childNode in self.nodeList[node].relatedNodes:
+            self.stdOut.print_debug('3: addPath: childNode: %s' % childNode)
+            path = list(self.pathList[path_list_pointer])
 
-        for childNode in self.nodeList[ node ].relatedNodes:
-            self.stdOut.print_debug('3: addPath: childNode: %s' % (childNode))
-            path = list(self.pathList[ pathListPointer ])
+            loop_detected = childNode in path
 
-            loopDetected = childNode in path
-
-            self.stdOut.print_debug("4: path: %s" % (path))
+            self.stdOut.print_debug("4: path: %s" % path)
             self.pathList.append(path)
-            self.pathList[ -1 ].append(childNode)
+            self.pathList[-1].append(childNode)
 
             self.stdOut.print_debug('5. childNode: %s' % childNode)
             self.stdOut.print_debug('6. path: %s' % path)
-            if not loopDetected:
-                self.addPath(len(self.pathList) - 1)
+            if not loop_detected:
+                self.add_path(len(self.pathList) - 1)
 
-    def findFinishedPathsWithNode(self, node):
+    def find_finished_paths_with_node(self, node):
         for path in self.pathList:
             if node in path:
                 for endNode in self.endNode:
@@ -173,69 +174,69 @@ class GrcClass:
                         return path
         return False
 
-    def finishPaths(self):
+    def finish_paths(self):
         for pathPointer in range(0, len(self.pathList)):
-            endNodeFound = False
+            end_node_found = False
             for endNode in self.endNode:
                 if endNode in self.pathList[pathPointer]:
-                    endNodeFound = True
-            if not endNodeFound:
-                finishedPath = self.findFinishedPathsWithNode(self.pathList[pathPointer][-1])
-                copyFromElementIndex = finishedPath.index(self.pathList[pathPointer][-1])
+                    end_node_found = True
+            if not end_node_found:
+                finished_path = self.find_finished_paths_with_node(self.pathList[pathPointer][-1])
+                copy_from_element_index = finished_path.index(self.pathList[pathPointer][-1])
 
-                for x in range(copyFromElementIndex + 1, len(finishedPath)):
-                    self.pathList[pathPointer].append(finishedPath[x])
+                for x in range(copy_from_element_index + 1, len(finished_path)):
+                    self.pathList[pathPointer].append(finished_path[x])
 
-    def removeRepeatedPaths(self):
-        newPathList = []
+    def remove_repeated_paths(self):
+        new_path_list = []
         for path in self.pathList:
-            if not path in newPathList:
-                newPathList.append(path)
-        self.pathList = newPathList
+            if path not in new_path_list:
+                new_path_list.append(path)
+        self.pathList = new_path_list
 
-    def createScenarios(self):
+    def create_scenarios(self):
 
         for pathId in range(0, len(self.pathList)):
 
-            sourceNode = None
+            source_node = None
 
             scenario = Scenario(pathId, '', [])
 
-            for nodeId in self.pathList[ pathId ]:
+            for nodeId in self.pathList[pathId]:
 
-                scenario.addStep(self.edgeLabel(sourceNode, nodeId), self.getNodeLabel(nodeId))
-                sourceNode = nodeId
+                scenario.add_step(self.edge_label(source_node, nodeId), self.get_node_label(nodeId))
+                source_node = nodeId
 
             self.scenariosList.append(scenario)
 
     def go(self):
 
-        crawlerStartTime = time.time()
+        crawler_start_time = time.time()
 
         self.plugin = PluginList.init()
 
-        self.parseCmdParams()
+        self.parse_cmd_params()
 
         if self.LIST_PLUGINS:
-            self.plugin.listPlugins()
+            self.plugin.list_plugins()
             quit()
 
         self.stdOut.print_debug('GRAPH_NAME: %s' % self.GRAPH_NAME)
 
-        self.getNodeListFromGraphFile()
+        self.get_node_list_from_graph_file()
         self.stdOut.print_debug('Node list: ')
         for node in self.nodeList:
             self.stdOut.print_debug(str(node))
 
-        self.findStartEndNodes()
+        self.find_start_end_nodes()
 
-        self.generatePaths()
+        self.generate_paths()
 
         if not self.STOP_AT_REPEATED_NODE:
-            self.finishPaths()
-            self.removeRepeatedPaths()
+            self.finish_paths()
+            self.remove_repeated_paths()
 
-        self.createScenarios()
+        self.create_scenarios()
 
         if self.stdOut.debugFlag:
             for scenario in self.scenariosList:
@@ -247,13 +248,13 @@ class GrcClass:
                     self.stdOut.print_debug('step.node.code: %s' % step.node.code)
 
         if self.outputPluginLang != 'stdOut':
-            self.plugin.runByLanguage(self.outputPluginLang, { 'scenarios':self.scenariosList, 'stdOut':self.stdOut})
+            self.plugin.run_by_language(self.outputPluginLang, {'scenarios': self.scenariosList, 'stdOut': self.stdOut})
         elif self.outputPlugin != 'stdOut':
-             self.plugin.runByExtension(self.outputPlugin, { 'scenarios':self.scenariosList, 'stdOut':self.stdOut })
+            self.plugin.run_by_extension(self.outputPlugin, {'scenarios': self.scenariosList, 'stdOut': self.stdOut})
         else:
-            self.printScenariosOnStdOut()
+            self.print_scenarios_on_std_out()
 
-        self.stdOut.my_print("--- Crawler finised in %s seconds ---" % (time.time() - crawlerStartTime))
+        self.stdOut.my_print("--- Crawler finised in %s seconds ---" % (time.time() - crawler_start_time))
 
 
 if __name__ == '__main__':

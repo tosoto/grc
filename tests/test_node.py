@@ -27,7 +27,7 @@ class TestStringMethod(unittest.TestCase):
         node = Node.Node(2, [5,6], 'test node')
 
         self.assertEqual(node.id, 2)
-        self.assertEqual(node.relatedNodes, [ 5, 6 ])
+        self.assertEqual(node.relatedNodes, [5, 6])
         self.assertEqual(node.label, 'test node')
 
     def test_node_str(self):

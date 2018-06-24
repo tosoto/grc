@@ -37,7 +37,7 @@ def run(parameters):
     file_name = parameters['file_name']
     stdOut = parameters['output']
 
-    ns = { 'xmlns' : 'http://graphml.graphdrawing.org/xmlns', 'graphml' : 'http://www.yworks.com/xml/graphml' }
+    ns = {'xmlns' : 'http://graphml.graphdrawing.org/xmlns', 'graphml' : 'http://www.yworks.com/xml/graphml'}
 
     try:
         graph = xml.etree.ElementTree.parse(file_name)
@@ -67,13 +67,13 @@ def run(parameters):
 
         if edgeType is not None:
             id = int(edge.attrib['id'].strip('e'))
-            source = int(edge.attrib[ 'source' ].strip('n'))
-            target = int(edge.attrib[ 'target' ].strip('n'))
+            source = int(edge.attrib['source'].strip('n'))
+            target = int(edge.attrib['target'].strip('n'))
             label = edgeType.find('graphml:EdgeLabel', ns).text
 
             edgeList.append(Edge.Edge(source, target, label))
-            nodeList[ source ].relatedNodes.append(target)
+            nodeList[source].relatedNodes.append(target)
         else:
-            stdOut.print_debug("EDGE NOT KNOWN: \n[ %s, %s, %s, %s, %s ]" % (edgeType, id, source, target, label))
+            stdOut.print_debug("EDGE NOT KNOWN: \n[%s, %s, %s, %s, %s]" % (edgeType, id, source, target, label))
 
     return edgeList, nodeList

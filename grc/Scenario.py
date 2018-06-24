@@ -17,21 +17,22 @@
 
 import Step
 
+
 class Scenario:
     id = None
     name = None
     steps = []
 
-    def __init__(self, id, name, steps):
-        self.id = id
+    def __init__(self, _id, name, steps):
+        self.id = _id
         self.name = name
         self.steps = steps
 
     def __str__(self):
         return str(self.__dict__)
 
-    def addStep(self, actionDescription, stateDescription):
-        self.steps.append(Step.Step(len(self.steps), actionDescription, stateDescription))
+    def add_step(self, action_description, state_description):
+        self.steps.append(Step.Step(len(self.steps), action_description, state_description))
 
-    def getSteps(self):
+    def get_steps(self):
         return self.steps

@@ -15,20 +15,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import types
-
-
 class Output:
     consoleOut = ''
     debugFlag = False
     terminalOutput = True
 
     def enable_debug(self, state):
-        assert type(state) is types.BooleanType, 'state must be a bool'
+        assert isinstance(state, bool), 'state must be a bool'
         self.debugFlag = state
 
     def enable_terminal_output(self, state):
-        assert type(state) is types.BooleanType, 'state must be a bool'
+        assert isinstance(state, bool), 'state must be a bool'
         self.terminalOutput = state
 
     def clear_console_out(self):

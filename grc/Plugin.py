@@ -17,6 +17,7 @@
 import importlib
 import sys
 
+
 class Plugin:
     #--- Plugin types:
     UNKNOWN_TYPE_MODULE = 0
@@ -41,7 +42,7 @@ class Plugin:
             self.extension = self.handle.extension
             self.language = self.handle.language
             self.type = self.handle.type
-        except Exception,e:
+        except Exception, e:
             print("Error in plugin: %s" % self.name)
             print(e)
             quit()
