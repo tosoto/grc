@@ -37,7 +37,7 @@ def run(parameters):
     try:
         import pyexcel_ods
     except:
-        stdOut.printError("Couldn't import pyexcel-ods - scnearios export to the ods format would not be possible\nPlease install pyexcel-ods")
+        stdOut.print_error("Couldn't import pyexcel-ods - scnearios export to the ods format would not be possible\nPlease install pyexcel-ods")
 
     data = collections.OrderedDict()
     exportSheetSteps = [ ['Scenario name','Step', 'Action', 'State'] ]
@@ -54,4 +54,4 @@ def run(parameters):
 
     data.update({ 'Export sheet' : exportSheetSteps })
     pyexcel_ods.save_data(outName, data)
-    stdOut.myPrint('%s scenarios saved to "%s"' % (len(scenarios), outName))
+    stdOut.my_print('%s scenarios saved to "%s"' % (len(scenarios), outName))

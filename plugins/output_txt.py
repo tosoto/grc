@@ -33,8 +33,8 @@ def run(parameters):
     stdOut = parameters['stdOut']
     scenarios = parameters['scenarios']
 
-    stdOut.printDebug("TXT extention is working now")
-    stdOut.printDebug('Called with parameters: %s' % parameters)
+    stdOut.print_debug("TXT extention is working now")
+    stdOut.print_debug('Called with parameters: %s' % parameters)
 
     if not os.path.exists(output_path):
         os.makedirs(output_path)

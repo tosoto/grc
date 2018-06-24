@@ -14,14 +14,15 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 class Edge:
     sourceNode = None
     destinationNode = None
     label = ''
 
-    def __init__(self, sourceNode, destinationNode, label):
-        self.sourceNode = sourceNode
-        self.destinationNode = destinationNode
+    def __init__(self, source_node, destination_node, label):
+        self.sourceNode = source_node
+        self.destinationNode = destination_node
         self.label = label
 
     def __str__(self):

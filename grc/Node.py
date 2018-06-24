@@ -20,9 +20,9 @@ class Node:
     relatedNodes = []
     label = ''
 
-    def __init__(self, id, relatedNodes, label):
-        self.id = id
-        self.relatedNodes = relatedNodes
+    def __init__(self, _id, related_nodes, label):
+        self.id = _id
+        self.relatedNodes = related_nodes
         self.label = label
 
     def __str__(self):

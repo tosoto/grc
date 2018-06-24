@@ -54,7 +54,7 @@ class GrcClass:
 
     def enableTerminalOutput(self, state):
         assert type(state) == types.BooleanType, '"state" must be boolean type'
-        self.stdOut.enableTerminalOutput(state)
+        self.stdOut.enable_terminal_output(state)
 
     def edgeLabel(self, sourceNode, destinationNode):
         for edge in self.edgeList:
@@ -72,34 +72,34 @@ class GrcClass:
         for node in self.nodeList:
             if node.label == 'Start':
                 self.startNode.append(node.id)
-                self.stdOut.printDebug("Start node id: %s" % self.startNode[-1])
+                self.stdOut.print_debug("Start node id: %s" % self.startNode[-1])
             if node.relatedNodes == []:
                 self.endNode.append(node.id)
-                self.stdOut.printDebug('End node id: %s' % self.endNode[-1])
+                self.stdOut.print_debug('End node id: %s' % self.endNode[-1])
 
     def generatePaths(self):
 
         for singleStartNode in self.startNode:
             self.pathList.append([ singleStartNode ])
 
-        self.stdOut.printDebug('Path list: + ' + str(self.pathList))
+        self.stdOut.print_debug('Path list: + ' + str(self.pathList))
 
         for x in range(0, len(self.pathList)):
             self.addPath(x)
 
-        self.stdOut.printDebug(self.pathList)
+        self.stdOut.print_debug(self.pathList)
 
     def printScenariosOnStdOut(self):
         for pathId in range(0, len(self.pathList)):
-            self.stdOut.myPrint("Scenario: %s" % (pathId + 1))
-            self.stdOut.myPrint("Step\t|\tAction \t\t\t|\tState")
+            self.stdOut.my_print("Scenario: %s" % (pathId + 1))
+            self.stdOut.my_print("Step\t|\tAction \t\t\t|\tState")
             step = 1
             sourceNode = None
             for nodeId in self.pathList[ pathId ]:
-                self.stdOut.myPrint("Step: %s\t|\t%s\t|\t%s" % (step, self.edgeLabel(sourceNode, nodeId), self.getNodeLabel(nodeId)))
+                self.stdOut.my_print("Step: %s\t|\t%s\t|\t%s" % (step, self.edgeLabel(sourceNode, nodeId), self.getNodeLabel(nodeId)))
                 step = step + 1
                 sourceNode = nodeId
-            self.stdOut.myPrint('**************************************************************************************************')
+            self.stdOut.my_print('**************************************************************************************************')
 
     def parseCmdParams(self):
         parser = argparse.ArgumentParser(description = 'Crawl over provided graph all edges and displayed them as test scenarios')
@@ -120,7 +120,7 @@ class GrcClass:
         if not 'graphml' in self.GRAPH_NAME:
             self.GRAPH_NAME = self.GRAPH_NAME + '.graphml'
 
-        self.stdOut.enableDebug(args.debug)
+        self.stdOut.enable_debug(args.debug)
 
         if args.extension is not None:
             self.outputPlugin = args.extension
@@ -137,7 +137,7 @@ class GrcClass:
         if args.listplugins is not None:
             self.LIST_PLUGINS = args.listplugins
 
-        self.stdOut.printDebug('GRAPH_NAME: %s' % self.GRAPH_NAME)
+        self.stdOut.print_debug('GRAPH_NAME: %s' % self.GRAPH_NAME)
 
     def getNodeListFromGraphFile(self):
 
@@ -147,21 +147,21 @@ class GrcClass:
 
         node = self.pathList[ pathListPointer ][-1]
 
-        self.stdOut.printDebug("1: addPath: node: %s pointer: %s" % (node, pathListPointer))
-        self.stdOut.printDebug("2:path list: %s" % (self.pathList))
+        self.stdOut.print_debug("1: addPath: node: %s pointer: %s" % (node, pathListPointer))
+        self.stdOut.print_debug("2:path list: %s" % (self.pathList))
 
         for childNode in self.nodeList[ node ].relatedNodes:
-            self.stdOut.printDebug('3: addPath: childNode: %s' % (childNode))
+            self.stdOut.print_debug('3: addPath: childNode: %s' % (childNode))
             path = list(self.pathList[ pathListPointer ])
 
             loopDetected = childNode in path
 
-            self.stdOut.printDebug("4: path: %s" % (path))
+            self.stdOut.print_debug("4: path: %s" % (path))
             self.pathList.append(path)
             self.pathList[ -1 ].append(childNode)
 
-            self.stdOut.printDebug('5. childNode: %s' % childNode)
-            self.stdOut.printDebug('6. path: %s' % path)
+            self.stdOut.print_debug('5. childNode: %s' % childNode)
+            self.stdOut.print_debug('6. path: %s' % path)
             if not loopDetected:
                 self.addPath(len(self.pathList) - 1)
 
@@ -220,12 +220,12 @@ class GrcClass:
             self.plugin.listPlugins()
             quit()
 
-        self.stdOut.printDebug('GRAPH_NAME: %s' % self.GRAPH_NAME)
+        self.stdOut.print_debug('GRAPH_NAME: %s' % self.GRAPH_NAME)
 
         self.getNodeListFromGraphFile()
-        self.stdOut.printDebug('Node list: ')
+        self.stdOut.print_debug('Node list: ')
         for node in self.nodeList:
-            self.stdOut.printDebug(str(node))
+            self.stdOut.print_debug(str(node))
 
         self.findStartEndNodes()
 
@@ -239,12 +239,12 @@ class GrcClass:
 
         if self.stdOut.debugFlag:
             for scenario in self.scenariosList:
-                self.stdOut.printDebug('Scenario: %s ------------------' % scenario.id)
+                self.stdOut.print_debug('Scenario: %s ------------------' % scenario.id)
                 for step in scenario.steps:
-                    self.stdOut.printDebug('step.action.label: %s' % step.action.label)
-                    self.stdOut.printDebug('step.action.code: %s' % step.action.code)
-                    self.stdOut.printDebug('step.node.label: %s' % step.node.label)
-                    self.stdOut.printDebug('step.node.code: %s' % step.node.code)
+                    self.stdOut.print_debug('step.action.label: %s' % step.action.label)
+                    self.stdOut.print_debug('step.action.code: %s' % step.action.code)
+                    self.stdOut.print_debug('step.node.label: %s' % step.node.label)
+                    self.stdOut.print_debug('step.node.code: %s' % step.node.code)
 
         if self.outputPluginLang != 'stdOut':
             self.plugin.runByLanguage(self.outputPluginLang, { 'scenarios':self.scenariosList, 'stdOut':self.stdOut})
@@ -253,7 +253,7 @@ class GrcClass:
         else:
             self.printScenariosOnStdOut()
 
-        self.stdOut.myPrint("--- Crawler finised in %s seconds ---" % (time.time() - crawlerStartTime))
+        self.stdOut.my_print("--- Crawler finised in %s seconds ---" % (time.time() - crawlerStartTime))
 
 
 if __name__ == '__main__':

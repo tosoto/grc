@@ -42,7 +42,7 @@ def run(parameters):
     try:
         graph = xml.etree.ElementTree.parse(file_name)
     except IOError,e:
-        stdOut.printError("Could not open specified file\nDetails:"  + str(e))
+        stdOut.print_error("Could not open specified file\nDetails:" + str(e))
 
     graphRoot = graph.getroot()
     g = graphRoot.find('xmlns:graph', ns)
@@ -74,6 +74,6 @@ def run(parameters):
             edgeList.append(Edge.Edge(source, target, label))
             nodeList[ source ].relatedNodes.append(target)
         else:
-            stdOut.printDebug("EDGE NOT KNOWN: \n[ %s, %s, %s, %s, %s ]" % (edgeType, id, source, target, label))
+            stdOut.print_debug("EDGE NOT KNOWN: \n[ %s, %s, %s, %s, %s ]" % (edgeType, id, source, target, label))
 
     return edgeList, nodeList

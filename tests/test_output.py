@@ -33,10 +33,10 @@ class TestStringMethod(unittest.TestCase):
 
         output = Output.Output()
 
-        output.enableDebug(True)
+        output.enable_debug(True)
         self.assertEqual(output.debugFlag, True)
 
-        output.enableDebug(False)
+        output.enable_debug(False)
         self.assertEqual(output.debugFlag, False)
 
 
@@ -44,10 +44,10 @@ class TestStringMethod(unittest.TestCase):
 
         output = Output.Output()
 
-        output.enableTerminalOutput(True)
+        output.enable_terminal_output(True)
         self.assertEqual(output.terminalOutput, True)
 
-        output.enableTerminalOutput(False)
+        output.enable_terminal_output(False)
         self.assertEqual(output.terminalOutput, False)
 
 
@@ -57,7 +57,7 @@ class TestStringMethod(unittest.TestCase):
 
         output.consoleOut = 'abc'
 
-        output.clearConsoleOut()
+        output.clear_console_out()
 
         self.assertEqual(output.consoleOut, '')
 
@@ -68,16 +68,16 @@ class TestStringMethod(unittest.TestCase):
 
         output.consoleOut = 'abc'
 
-        self.assertEqual(output.getConsole(), 'abc')
+        self.assertEqual(output.get_console(), 'abc')
 
 
 
     def test_output_myPrint(self):
 
         output = Output.Output()
-        output.enableTerminalOutput(False)
+        output.enable_terminal_output(False)
 
-        output.myPrint('abc')
+        output.my_print('abc')
 
         self.assertEqual(output.consoleOut, 'abc')
 
@@ -85,15 +85,15 @@ class TestStringMethod(unittest.TestCase):
     def test_output_printDebug(self):
 
         output = Output.Output()
-        output.enableTerminalOutput(False)
+        output.enable_terminal_output(False)
 
-        output.enableDebug(False)
-        output.printDebug('abc')
+        output.enable_debug(False)
+        output.print_debug('abc')
 
         self.assertEqual(output.consoleOut, '')
 
-        output.enableDebug(True)
-        output.printDebug('def')
+        output.enable_debug(True)
+        output.print_debug('def')
 
         self.assertEqual(output.consoleOut, 'def')
 
@@ -101,15 +101,15 @@ class TestStringMethod(unittest.TestCase):
     def test_output_printWarning(self):
 
         output = Output.Output()
-        output.enableTerminalOutput(False)
+        output.enable_terminal_output(False)
 
-        output.enableDebug(False)
-        output.printWarning('abc')
+        output.enable_debug(False)
+        output.print_warning('abc')
 
         self.assertEqual(output.consoleOut, 'Warning: abc\n')
 
-        output.enableDebug(True)
-        output.printWarning('def')
+        output.enable_debug(True)
+        output.print_warning('def')
 
         self.assertEqual(output.consoleOut, 'Warning: abc\nWarning: def\n')
 
@@ -117,12 +117,12 @@ class TestStringMethod(unittest.TestCase):
     def test_output_printError(self):
 
         output = Output.Output()
-        output.enableTerminalOutput(False)
+        output.enable_terminal_output(False)
 
         sys_exit = False
 
         try:
-            output.printError('abc')
+            output.print_error('abc')
         except SystemExit:
             sys_exit = True
 
