@@ -51,7 +51,7 @@ class PluginList:
                     self.pluginList.append(Plugin(pluginName))
 
     def listPlugins(self):
-        for plugin in self.pluginList:
+        for plugin in sorted(self.pluginList, key=lambda x: x.name):
             print('-----------------------------------------------------------------------------------')
             print('Plugin: %s\n  Extension: %s\n  Type: %s\n  Language: %s' % (plugin.name, plugin.extension, plugin.type, plugin.language))
 
