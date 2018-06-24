@@ -26,7 +26,7 @@ type = 2 # output module
 language = 'java'
 #----------------------------------
 
-output_path = 'Scenarios_Java'
+output_path = 'Scenarios_%s' % language
 output_prefix = 'Scenario_'
 
 
@@ -39,7 +39,7 @@ def run(parameters):
 
     for scenario in scenarios:
 
-        scenario_file = open('%s/%s%s.java' % (output_path, output_prefix, scenario.id), 'w')
+        scenario_file = open('%s/%s%s.%s' % (output_path, output_prefix, scenario.id, extension), 'w')
 
         for step in scenario.steps:
 

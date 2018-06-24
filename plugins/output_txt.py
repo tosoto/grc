@@ -26,22 +26,19 @@ type = 2 # output module
 language = 'manual'
 #----------------------------------
 
-output_path = 'Scenarios_txt'
+output_path = 'Scenarios_%s' % language
 output_prefix = 'Scenario_'
 
 def run(parameters):
     stdOut = parameters['stdOut']
     scenarios = parameters['scenarios']
 
-    stdOut.print_debug("TXT extention is working now")
-    stdOut.print_debug('Called with parameters: %s' % parameters)
-
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
     for scenario in scenarios:
 
-        scenario_file = open('%s/%s%s.txt' % (output_path, output_prefix, scenario.id), 'w')
+        scenario_file = open('%s/%s%s.%s' % (output_path, output_prefix, scenario.id, extension), 'w')
 
         for step in scenario.steps:
 
