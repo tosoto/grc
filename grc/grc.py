@@ -27,6 +27,7 @@ from Edge import *
 from Node import *
 from Step import *
 from Scenario import *
+import sys
 
 
 class GrcClass:
@@ -256,6 +257,8 @@ class GrcClass:
 
         self.stdOut.my_print("--- Crawler finised in %s seconds ---" % (time.time() - crawler_start_time))
 
+    def __init__(self):
+        sys.path.append('plugins/')
 
 if __name__ == '__main__':
     grc = GrcClass()

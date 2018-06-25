@@ -35,8 +35,6 @@ class Plugin:
     def __init__(self, name):
         self.name = name
 
-        sys.path.append('plugins/')
-
         try:
             self.handle = importlib.import_module(self.name)
             self.extension = self.handle.extension
