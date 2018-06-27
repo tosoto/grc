@@ -32,6 +32,11 @@ language = 'yed'
 edgeList = []
 nodeList = []
 
+supported_node_types = [
+    'graphml:GenericNode',
+    'graphml:ShapeNode'
+]
+
 def run(parameters):
 
     file_name = parameters['file_name']
@@ -52,13 +57,22 @@ def run(parameters):
 
     for node in nodes:
         data = node.findall('xmlns:data', ns)
+        node_recognized = False
         for dataElement in data:
-            nodeType = dataElement.find('graphml:GenericNode', ns)
 
+            nodeType = None
+            for type_string in supported_node_types:
+                if nodeType is None:
+                    nodeType = dataElement.find(type_string, ns)
+
+            id = int(node.attrib['id'].strip('n'))
             if nodeType is not None:
-                id = int(node.attrib['id'].strip('n'))
                 label = nodeType.find('graphml:NodeLabel', ns).text
                 nodeList.append(Node.Node(id, [], label))
+                node_recognized = True
+
+        if not node_recognized:
+            stdOut.print_error('Unrecognized node type on graph! Node id: %s' % id)
 
     for edge in edges:
         data = edge.findall('xmlns:data', ns)
