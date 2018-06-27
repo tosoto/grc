@@ -69,9 +69,13 @@ def run(parameters):
             id = int(edge.attrib['id'].strip('e'))
             source = int(edge.attrib['source'].strip('n'))
             target = int(edge.attrib['target'].strip('n'))
-            label = edgeType.find('graphml:EdgeLabel', ns).text
+            label = edgeType.find('graphml:EdgeLabel', ns)
+            if label is not None:
+                label_text = label.text
+            else:
+                label_text = ''
 
-            edgeList.append(Edge.Edge(source, target, label))
+            edgeList.append(Edge.Edge(source, target, label_text))
             nodeList[source].relatedNodes.append(target)
         else:
             stdOut.print_debug("EDGE NOT KNOWN: \n[%s, %s, %s, %s, %s]" % (edgeType, id, source, target, label))
