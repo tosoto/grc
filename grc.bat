@@ -1,0 +1,1 @@
+python grc/grc.py %*
