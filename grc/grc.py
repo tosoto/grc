@@ -28,6 +28,7 @@ from Node import *
 from Step import *
 from Scenario import *
 import sys
+import ControllWords
 
 
 class GrcClass:
@@ -51,6 +52,8 @@ class GrcClass:
 
     scenarios = {}
 
+    control_words = []
+
     plugin = ''
 
     def enable_terminal_output(self, state):
@@ -71,12 +74,15 @@ class GrcClass:
     def find_start_end_nodes(self):
 
         for node in self.nodeList:
-            if node.label == 'Start':
+            if node.label == str(self.control_words.start):
                 self.startNode.append(node.id)
                 self.stdOut.print_debug("Start node id: %s" % self.startNode[-1])
             if not node.relatedNodes:
                 self.endNode.append(node.id)
                 self.stdOut.print_debug('End node id: %s' % self.endNode[-1])
+
+        if not self.startNode:
+            self.stdOut.print_error('"%s" node not found' % self.control_words.start)
 
     def generate_paths(self):
 
@@ -201,7 +207,7 @@ class GrcClass:
 
             source_node = None
 
-            scenario = Scenario(pathId, '', [])
+            scenario = Scenario(pathId, '', [], self.control_words)
 
             for nodeId in self.pathList[pathId]:
 
@@ -259,6 +265,7 @@ class GrcClass:
 
     def __init__(self):
         sys.path.append('plugins/')
+        self.control_words = ControllWords.ControlWords(self.stdOut)
 
 if __name__ == '__main__':
     grc = GrcClass()

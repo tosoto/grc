@@ -22,11 +22,11 @@ class Step:
         label = ''
         code = ''
 
-        def __init__(self, description):
+        def __init__(self, description, control_words):
             self.description = description.split('\n')
             for line in self.description:
-                if '\code:' in line:
-                    self.add_code_line(line.replace('\code:', ''))
+                if str(control_words.code) in line:
+                    self.add_code_line(line.replace(str(control_words.code), ''))
                 else:
                     self.add_label_line(line)
 
@@ -46,11 +46,11 @@ class Step:
     action = None
     node = None
 
-    def __init__(self, id, action_description, state_description):
+    def __init__(self, id, action_description, state_description, control_words):
         self.id = id
 
-        self.action = self.StepObj(action_description)
-        self.node = self.StepObj(state_description)
+        self.action = self.StepObj(action_description, control_words)
+        self.node = self.StepObj(state_description, control_words)
 
     def __str__(self):
         return str(self.__dict__)

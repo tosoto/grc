@@ -22,17 +22,19 @@ class Scenario:
     id = None
     name = None
     steps = []
+    control_words = ''
 
-    def __init__(self, _id, name, steps):
+    def __init__(self, _id, name, steps, control_words):
         self.id = _id
         self.name = name
         self.steps = steps
+        self.control_words = control_words
 
     def __str__(self):
         return str(self.__dict__)
 
     def add_step(self, action_description, state_description):
-        self.steps.append(Step.Step(len(self.steps), action_description, state_description))
+        self.steps.append(Step.Step(len(self.steps), action_description, state_description, self.control_words))
 
     def get_steps(self):
         return self.steps
