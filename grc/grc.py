@@ -278,6 +278,7 @@ class GrcClass:
         else:
             self.print_scenarios_on_std_out()
 
+        self.stdOut.my_print("--- %s scenarios generated" % len(self.scenariosList))
         self.stdOut.my_print("--- Crawler finised in %s seconds ---" % (time.time() - crawler_start_time))
 
     def __init__(self):

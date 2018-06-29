@@ -54,4 +54,4 @@ def run(parameters):
 
     data.update({'Export sheet' : exportSheetSteps})
     pyexcel_ods.save_data(outName, data)
-    stdOut.my_print('%s scenarios saved to "%s"' % (len(scenarios), outName))
+    stdOut.my_print('--- Scenarios saved to "%s"' % outName)
