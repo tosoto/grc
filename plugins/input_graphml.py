@@ -90,7 +90,7 @@ def run(parameters):
                 label_text = ''
 
             edgeList.append(Edge.Edge(source, target, label_text))
-            nodeList[source].relatedNodes.append(target)
+            nodeList[source].related_edges.append(edgeList[-1])
         else:
             stdOut.print_debug("EDGE NOT KNOWN: \n[%s, %s, %s, %s, %s]" % (edgeType, id, source, target, label))
 

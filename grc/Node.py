@@ -17,12 +17,12 @@
 
 class Node:
     id = None
-    relatedNodes = []
+    related_edges = []
     label = ''
 
-    def __init__(self, _id, related_nodes, label):
+    def __init__(self, _id, related_edges, label):
         self.id = _id
-        self.relatedNodes = related_nodes
+        self.related_edges = related_edges
         self.label = label
 
     def __str__(self):

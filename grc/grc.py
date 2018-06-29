@@ -47,6 +47,8 @@ class GrcClass:
     edgeList = []
     startNode = []
     endNode = []
+    start_edge = []
+    end_edge = []
     pathList = []
     scenariosList = []
 
@@ -77,17 +79,27 @@ class GrcClass:
             if node.label == str(self.control_words.start):
                 self.startNode.append(node.id)
                 self.stdOut.print_debug("Start node id: %s" % self.startNode[-1])
-            if not node.relatedNodes:
+            if not node.related_edges:
                 self.endNode.append(node.id)
                 self.stdOut.print_debug('End node id: %s' % self.endNode[-1])
+
+        for nodeId in self.startNode:
+            for edge in self.edgeList:
+                if edge.sourceNode == nodeId:
+                    self.start_edge.append(edge)
+
+        for nodeId in self.endNode:
+            for edge in self.edgeList:
+                if edge.destinationNode == nodeId:
+                    self.end_edge.append(edge)
 
         if not self.startNode:
             self.stdOut.print_error('"%s" node not found' % self.control_words.start)
 
     def generate_paths(self):
 
-        for singleStartNode in self.startNode:
-            self.pathList.append([singleStartNode])
+        for singleStartEdge in self.start_edge:
+            self.pathList.append([singleStartEdge])
 
         self.stdOut.print_debug('Path list: + ' + str(self.pathList))
 
@@ -102,10 +114,9 @@ class GrcClass:
             self.stdOut.my_print("Step\t|\tAction \t\t\t|\tState")
             step = 1
             source_node = None
-            for nodeId in self.pathList[pathId]:
-                self.stdOut.my_print("Step: %s\t|\t%s\t|\t%s" % (step, self.edge_label(source_node, nodeId), self.get_node_label(nodeId)))
+            for edge in self.pathList[pathId]:
+                self.stdOut.my_print("Step: %s\t|\t%s\t|\t%s" % (step, edge.label, self.get_node_label(edge.destinationNode)))
                 step = step + 1
-                source_node = nodeId
             self.stdOut.my_print('**************************************************************************************************')
 
     def parse_cmd_params(self):
@@ -153,22 +164,22 @@ class GrcClass:
 
     def add_path(self, path_list_pointer):
 
-        node = self.pathList[path_list_pointer][-1]
+        node = self.pathList[path_list_pointer][-1].destinationNode
 
         self.stdOut.print_debug("1: addPath: node: %s pointer: %s" % (node, path_list_pointer))
         self.stdOut.print_debug("2:path list: %s" % self.pathList)
 
-        for childNode in self.nodeList[node].relatedNodes:
-            self.stdOut.print_debug('3: addPath: childNode: %s' % childNode)
+        for rel_edge in self.nodeList[node].related_edges:
+            self.stdOut.print_debug('3: addPath: rel_edge: %s' % rel_edge)
             path = list(self.pathList[path_list_pointer])
 
-            loop_detected = childNode in path
+            loop_detected = rel_edge in path
 
             self.stdOut.print_debug("4: path: %s" % path)
             self.pathList.append(path)
-            self.pathList[-1].append(childNode)
+            self.pathList[-1].append(rel_edge)
 
-            self.stdOut.print_debug('5. childNode: %s' % childNode)
+            self.stdOut.print_debug('5. rel_edge: %s' % rel_edge)
             self.stdOut.print_debug('6. path: %s' % path)
             if not loop_detected:
                 self.add_path(len(self.pathList) - 1)
@@ -181,18 +192,27 @@ class GrcClass:
                         return path
         return False
 
+    def find_finished_paths_with_edge(self, edge):
+        for path in self.pathList:
+            if edge in path:
+                for end_edge in self.end_edge:
+                    if end_edge in path:
+                        return path
+        return False
+
     def finish_paths(self):
         for pathPointer in range(0, len(self.pathList)):
-            end_node_found = False
-            for endNode in self.endNode:
-                if endNode in self.pathList[pathPointer]:
-                    end_node_found = True
-            if not end_node_found:
-                finished_path = self.find_finished_paths_with_node(self.pathList[pathPointer][-1])
-                copy_from_element_index = finished_path.index(self.pathList[pathPointer][-1])
+            end_edge_found = False
+            for end_edge in self.end_edge:
+                if end_edge in self.pathList[pathPointer]:
+                    end_edge_found = True
+            if not end_edge_found:
+                finished_path = self.find_finished_paths_with_edge(self.pathList[pathPointer][-1])
+                if finished_path:
+                    copy_from_element_index = finished_path.index(self.pathList[pathPointer][-1])
 
-                for x in range(copy_from_element_index + 1, len(finished_path)):
-                    self.pathList[pathPointer].append(finished_path[x])
+                    for x in range(copy_from_element_index + 1, len(finished_path)):
+                        self.pathList[pathPointer].append(finished_path[x])
 
     def remove_repeated_paths(self):
         new_path_list = []
@@ -205,14 +225,11 @@ class GrcClass:
 
         for pathId in range(0, len(self.pathList)):
 
-            source_node = None
-
             scenario = Scenario(pathId, '', [], self.control_words)
 
-            for nodeId in self.pathList[pathId]:
+            for edge in self.pathList[pathId]:
 
-                scenario.add_step(self.edge_label(source_node, nodeId), self.get_node_label(nodeId))
-                source_node = nodeId
+                scenario.add_step(edge.label, self.get_node_label(edge.destinationNode))
 
             self.scenariosList.append(scenario)
 
