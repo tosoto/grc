@@ -61,3 +61,6 @@ def run(parameters):
                     scenario_file.write('    %s\n' % nodeCodeLine)
 
         scenario_file.close()
+
+    stdOut.my_print('--- Scenarios saved to "%s"' % output_path)
+

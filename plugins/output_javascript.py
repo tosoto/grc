@@ -75,3 +75,5 @@ def run(parameters):
         scenario_file.write('</html>')
 
         scenario_file.close()
+
+    stdOut.my_print('--- Scenarios saved to "%s"' % output_path)

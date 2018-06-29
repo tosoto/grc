@@ -70,3 +70,5 @@ def run(parameters):
         scenario_file.write('}')
 
         scenario_file.close()
+
+    stdOut.my_print('--- Scenarios saved to "%s"' % output_path)

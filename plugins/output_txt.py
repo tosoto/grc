@@ -52,3 +52,5 @@ def run(parameters):
                 scenario_file.write('%s. %s\n    ---> %s\n' % (step.id, step.action.label, step.node.label))
 
         scenario_file.close()
+
+    stdOut.my_print('--- Scenarios saved to "%s"' % output_path)
