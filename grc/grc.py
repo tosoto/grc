@@ -248,6 +248,24 @@ class GrcClass:
 
         self.pathList = path_list_without_excluded_elements
 
+    def clear_labels_of_exclued_elements(self):
+        path_list_excluded_edges = []
+        for path in self.pathList:
+            path_excuded_edges = []
+            for edge in path:
+                if str(self.control_words.excluded_node) in edge.label:
+                    edge.label = ''
+                path_excuded_edges.append(edge)
+            path_list_excluded_edges.append(path_excuded_edges)
+        self.pathList = path_list_excluded_edges
+        node_list_excluded = []
+        for node in self.nodeList:
+            if str(self.control_words.excluded_node) in node.label:
+                node.label = ''
+            node_list_excluded.append(node)
+        self.nodeList = node_list_excluded
+
+
     def go(self):
 
         crawler_start_time = time.time()
@@ -272,6 +290,7 @@ class GrcClass:
         self.generate_paths()
 
         self.remove_paths_with_excluded_elements()
+        self.clear_labels_of_exclued_elements()
 
         if not self.STOP_AT_REPEATED_NODE:
             self.finish_paths()
