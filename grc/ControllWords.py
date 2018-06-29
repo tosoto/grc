@@ -38,9 +38,10 @@ class ControlWords:
     stdOut = ''
     code = ControlWord('code:', 'Insert your code just after this word. \
                                 Code will be inserted in the processed scenario files')
-    start = ControlWord('start', 'Grc will start processing from node marked with this word.\
-                                 Not obligarory')
-    do_not_process = ControlWord('#', 'Exclude node from processing. No path containing excluded node\
+    start = ControlWord('start', 'Grc will start processing from node marked with this label. Obligatory')
+    excluded_node = ControlWord('#', 'Exclude node from processing. No path containing excluded node\
+                                      will be saved')
+    excluded_path = ControlWord('##', 'Exclude scenario containing node from processing. No scenario containing excluded node\
                                       will be saved')
 
     def __init__(self, stdOut):
@@ -51,4 +52,5 @@ class ControlWords:
         self.stdOut.my_print('This words can be used on graph to enable following features:')
         self.stdOut.my_print('\t%s' % self.start.get_word_with_description())
         self.stdOut.my_print('\t%s' % self.code.get_word_with_description())
-        self.stdOut.my_print('\t%s' % self.do_not_process.get_word_with_description())
+        self.stdOut.my_print('\t%s' % self.excluded_node.get_word_with_description())
+        self.stdOut.my_print('\t%s' % self.excluded_path.get_word_with_description())
