@@ -26,6 +26,9 @@ This tool for now is a simple graph crawler walking on all graph edges and conve
 
   - -l, --listplugins  
     - Lists all available plugins
+    
+  - -r, --reduce_scenarios
+    - Leaves only scenarios with at least one step not covered by other scenario
 
   - -h, --help
     - Displays help

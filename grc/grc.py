@@ -42,6 +42,7 @@ class GrcClass:
     GRAPH_NAME = ''
     STOP_AT_REPEATED_NODE = False
     LIST_PLUGINS = False
+    REDUCE_PATHS = False
 
     nodeList = []
     edgeList = []
@@ -174,6 +175,7 @@ class GrcClass:
         parser.add_argument('-e', '--extension', type=str, help='File type extension format to save scenarios. Default it ods.')
         parser.add_argument('-s', '--stopatrepeatednode', action = 'store_true', help = 'Stops at repeated node, does not finishes path')
         parser.add_argument('-l', '--listplugins', action = 'store_true', help = 'Lists all available plugins')
+        parser.add_argument('-r', '--reduce_scenarios', action = 'store_true', help='leaves only scenarios with at least one step not covered by other scenario')
 
         args = parser.parse_args()
 
@@ -201,6 +203,9 @@ class GrcClass:
 
         if args.listplugins is not None:
             self.LIST_PLUGINS = args.listplugins
+
+        if args.reduce_scenarios is not None:
+            self.REDUCE_PATHS = args.reduce_scenarios
 
         self.stdOut.print_debug('GRAPH_NAME: %s' % self.GRAPH_NAME)
 
@@ -267,6 +272,25 @@ class GrcClass:
             if path not in new_path_list:
                 new_path_list.append(path)
         self.pathList = new_path_list
+
+    def reduce_paths(self):
+        path_removed = True
+        while path_removed:
+            path_removed = False
+            for path in self.pathList:
+                unique_edge_found = False
+                for edge in path:
+                    found_counter = 0
+                    for another_path in self.pathList:
+                        if not (another_path == path):
+                            if edge in another_path:
+                               found_counter += 1
+                               break
+                    if found_counter == 0:
+                        unique_edge_found = True
+                if not unique_edge_found:
+                    self.pathList.remove(path)
+                    path_removed = True
 
     def create_scenarios(self):
 
@@ -342,6 +366,9 @@ class GrcClass:
         if not self.STOP_AT_REPEATED_NODE:
             self.finish_paths()
             self.remove_repeated_paths()
+
+        if self.REDUCE_PATHS:
+            self.reduce_paths()
 
         self.create_scenarios()
 
