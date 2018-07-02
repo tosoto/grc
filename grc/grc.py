@@ -109,15 +109,62 @@ class GrcClass:
         self.stdOut.print_debug(self.pathList)
 
     def print_scenarios_on_std_out(self):
-        for pathId in range(0, len(self.pathList)):
-            self.stdOut.my_print("Scenario: %s" % (pathId + 1))
-            self.stdOut.my_print("Step\t|\tAction \t\t\t|\tState")
-            step = 1
-            source_node = None
-            for edge in self.pathList[pathId]:
-                self.stdOut.my_print("Step: %s\t|\t%s\t|\t%s" % (step, edge.label, self.get_node_label(edge.destinationNode)))
-                step = step + 1
-            self.stdOut.my_print('**************************************************************************************************')
+        max_length_step = 0
+        max_length_action = 0
+        max_length_state = 0
+        for scenario in self.scenariosList:
+            for step in scenario.steps:
+                if len(str(step.id)) > max_length_step:
+                    max_length_step = len(str(step.id))
+                for line in step.action.label.split('\n'):
+                    if len(line) > max_length_action:
+                        max_length_action = len(line)
+                for line in step.node.label.split('\n'):
+                    if len(line) > max_length_state:
+                        max_length_state = len(line)
+
+        scenario_bar = ''
+        scenario_bar_length = len('| Step  |  |  |') + max_length_step + max_length_state + max_length_action
+        for s in range( 0, scenario_bar_length):
+            scenario_bar += '-'
+
+        self.stdOut.my_print(scenario_bar)
+        for scenario in self.scenariosList:
+            self.stdOut.my_print("Scenario: %s" % (scenario.id))
+            for step in scenario.steps:
+
+                step_action_lines = step.action.label.split('\n')
+                step_node_lines = step.node.label.split('\n')
+
+                if len(step_action_lines) < len(step_node_lines):
+                    for l in range( len(step_action_lines), len(step_node_lines)):
+                        step_action_lines.append('\n')
+                elif len(step_node_lines) < len(step_action_lines):
+                    for l in range( len(step_node_lines), len(step_action_lines)):
+                        step_node_lines.append('\n')
+
+                max_step_height = len(step_node_lines)
+
+                for line_id in range(0, max_step_height):
+
+                    step_id = str(step.id)
+                    step_action_line = step_action_lines[line_id]
+                    step_node_line = step_node_lines[line_id]
+
+                    for l in range(len(str(step_id)), max_length_step):
+                        step_id += ' '
+                    for l in range(len(step_action_line), max_length_action):
+                        step_action_line += ' '
+
+                    for l in range(len(step_node_line), max_length_state):
+                        step_node_line += ' '
+
+                    if line_id == 0:
+                        self.stdOut.my_print( "| Step %s | %s | %s |" % (step_id, step_action_line, step_node_line))
+                    else:
+                        self.stdOut.my_print( "|         | %s | %s |" % (step_action_line, step_node_line))
+
+            self.stdOut.my_print(scenario_bar)
 
     def parse_cmd_params(self):
         parser = argparse.ArgumentParser(description = 'Crawl over provided graph all edges and displayed them as test scenarios')
