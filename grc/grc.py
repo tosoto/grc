@@ -76,7 +76,7 @@ class GrcClass:
     def find_start_end_nodes(self):
 
         for node in self.nodeList:
-            if node.label == str(self.control_words.start):
+            if str(self.control_words.start) in node.label:
                 self.startNode.append(node.id)
                 self.stdOut.print_debug("Start node id: %s" % self.startNode[-1])
             if not node.related_edges:
