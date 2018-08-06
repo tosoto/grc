@@ -20,13 +20,17 @@ import sys
 sys.path.append('../grc')
 import Scenario
 import Step
+import ControllWords
+import Output
 
 class TestStringMethod(unittest.TestCase):
 
     def test_scenario_init(self):
 
-        steps = [Step.Step(7, "abc\n\code: ghi", "def\n\code:jkl")]
-        scenario = Scenario.Scenario(3, "scn", steps)
+        control_words = ControllWords.ControlWords(Output.Output())
+
+        steps = [Step.Step(7, "abc\n\code: ghi", "def\n\code:jkl", control_words)]
+        scenario = Scenario.Scenario(3, "scn", steps, control_words)
 
         self.assertEqual(scenario.id, 3)
         self.assertEqual(scenario.name, "scn")
@@ -35,8 +39,10 @@ class TestStringMethod(unittest.TestCase):
 
     def test_scenario_addStep(self):
 
-        steps = [Step.Step(7, "abc\n\code: ghi", "def\n\code:jkl")]
-        scenario = Scenario.Scenario(3, "scn", steps)
+        control_words = ControllWords.ControlWords(Output.Output())
+
+        steps = [Step.Step(7, "abc\n\code: ghi", "def\n\code:jkl", control_words)]
+        scenario = Scenario.Scenario(3, "scn", steps, control_words)
 
         scenario.add_step("act", "nod")
 
@@ -46,10 +52,37 @@ class TestStringMethod(unittest.TestCase):
 
     def test_scenario_getSteps(self):
 
-        steps = [Step.Step(7, "abc\n\code: ghi", "def\n\code:jkl")]
-        scenario = Scenario.Scenario(3, "scn", steps)
+        control_words = ControllWords.ControlWords(Output.Output())
+
+        steps = [Step.Step(7, "abc\n\code: ghi", "def\n\code:jkl", control_words)]
+        scenario = Scenario.Scenario(3, "scn", steps, control_words)
 
         self.assertEqual(scenario.get_steps(), [scenario.steps[0]])
+
+    def test_scenario_get_id(self):
+
+        control_words = ControllWords.ControlWords(Output.Output())
+
+        steps = [Step.Step(7, "abc\n\code: ghi", "def\n\code:jkl", control_words)]
+
+        scenario1 = Scenario.Scenario(1, "scn", steps, control_words)
+        scenario9 = Scenario.Scenario(9, "scn", steps, control_words)
+        scenario10 = Scenario.Scenario(10, "scn", steps, control_words)
+        scenario99 = Scenario.Scenario(99, "scn", steps, control_words)
+        scenario100 = Scenario.Scenario(100, "scn", steps, control_words)
+        scenario999 = Scenario.Scenario(999, "scn", steps, control_words)
+        scenario1000 = Scenario.Scenario(1000, "scn", steps, control_words)
+        scenario9999 = Scenario.Scenario(9999, "scn", steps, control_words)
+
+        self.assertEqual(scenario1.get_id_str(), '0001')
+        self.assertEqual(scenario9.get_id_str(), '0009')
+        self.assertEqual(scenario10.get_id_str(), '0010')
+        self.assertEqual(scenario99.get_id_str(), '0099')
+        self.assertEqual(scenario100.get_id_str(), '0100')
+        self.assertEqual(scenario999.get_id_str(), '0999')
+        self.assertEqual(scenario1000.get_id_str(), '1000')
+        self.assertEqual(scenario9999.get_id_str(), '9999')
+
 
 if __name__ == "__main__":
     unittest.main()

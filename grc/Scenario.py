@@ -38,3 +38,13 @@ class Scenario:
 
     def get_steps(self):
         return self.steps
+
+    def get_id_str(self):
+        output = str(self.id)
+        if self.id < 10:
+            output = '0' + output
+        if self.id < 100:
+            output = '0' + output
+        if self.id < 1000:
+            output = '0' + output
+        return output

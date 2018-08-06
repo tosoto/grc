@@ -39,7 +39,7 @@ def run(parameters):
 
     for scenario in scenarios:
 
-        scenario_file = open('%s/%s%s.%s' % (output_path, output_prefix, scenario.id, extension), 'w')
+        scenario_file = open('%s/%s%s.%s' % (output_path, output_prefix, scenario.get_id_str(), extension), 'w')
 
         for step in scenario.steps:
 

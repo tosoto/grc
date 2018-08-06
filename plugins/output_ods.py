@@ -48,7 +48,7 @@ def run(parameters):
 
         for step in scenario.steps:
             scenarioSteps.append([step.id, step.action.label, step.node.label])
-            exportSheetSteps.append(['Scenaio %s' % scenario.id, step.id, step.action.label, step.node.label])
+            exportSheetSteps.append(['Scenaio %s' % scenario.get_id_str(), step.id, step.action.label, step.node.label])
 
         data.update({'Scenario %s' % scenario.id : scenarioSteps})
 
