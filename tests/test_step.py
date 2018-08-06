@@ -19,12 +19,16 @@ import unittest
 import sys
 sys.path.append('../grc')
 import Step
+import ControllWords
+import Output
 
 class TestStringMethod(unittest.TestCase):
 
     def test_step_stepObj_init(self):
 
-        stepObj = Step.Step.StepObj("lab\n\code:cod")
+        control_words = ControllWords.ControlWords(Output.Output())
+
+        stepObj = Step.Step.StepObj("lab\n\code:cod", control_words)
 
         self.assertEqual(stepObj.description, ['lab', '\code:cod'])
         self.assertEqual(stepObj.label, 'lab')
@@ -33,7 +37,9 @@ class TestStringMethod(unittest.TestCase):
 
     def test_step_stepObj_addCodeLine(self):
 
-        stepObj = Step.Step.StepObj('')
+        control_words = ControllWords.ControlWords(Output.Output())
+
+        stepObj = Step.Step.StepObj('', control_words)
 
         stepObj.add_code_line('cod')
 
@@ -42,7 +48,9 @@ class TestStringMethod(unittest.TestCase):
 
     def test_step_stepObj_addLabelLine(self):
 
-        stepObj = Step.Step.StepObj('')
+        control_words = ControllWords.ControlWords(Output.Output())
+
+        stepObj = Step.Step.StepObj('', control_words)
 
         stepObj.add_label_line('lab')
 
@@ -51,13 +59,17 @@ class TestStringMethod(unittest.TestCase):
 
     def test_step_stepObj_str(self):
 
-        stepObj = Step.Step.StepObj("lab\n\code:cod")
+        control_words = ControllWords.ControlWords(Output.Output())
+
+        stepObj = Step.Step.StepObj("lab\n\code:cod", control_words)
 
         self.assertEqual(str(stepObj), "{'code': 'cod', 'description': ['lab', '\\\\code:cod'], 'label': 'lab'}")
 
     def test_step_init(self):
 
-        step = Step.Step(7, 'abc\n\code: ghi', 'def\n\code:jkl')
+        control_words = ControllWords.ControlWords(Output.Output())
+
+        step = Step.Step(7, 'abc\n\code: ghi', 'def\n\code:jkl', control_words)
 
         self.assertEqual(step.id, 7)
 
@@ -72,7 +84,9 @@ class TestStringMethod(unittest.TestCase):
 
     def test_step_str(self):
 
-        step = Step.Step(7, 'abc\n\code: ghi', 'def\n\code:jkl')
+        control_words = ControllWords.ControlWords(Output.Output())
+
+        step = Step.Step(7, 'abc\n\code: ghi', 'def\n\code:jkl', control_words)
 
         self.assertEqual("'action': " in str(step), True)
         self.assertEqual("'node': " in str(step), True)
