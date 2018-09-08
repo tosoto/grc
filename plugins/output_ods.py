@@ -53,5 +53,9 @@ def run(parameters):
         data.update({'Scenario %s' % scenario.id : scenarioSteps})
 
     data.update({'Export sheet' : exportSheetSteps})
-    pyexcel_ods.save_data(outName, data)
-    stdOut.my_print('--- Scenarios saved to "%s"' % outName)
+    try:
+        pyexcel_ods.save_data(outName, data)
+        stdOut.my_print('--- Scenarios saved to "%s"' % outName)
+    except IOError as e:
+        stdOut.print_error("Couldn't write scenarios file: '%s'\nReason: %s" % (outName, e.strerror))
+
