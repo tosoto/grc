@@ -58,13 +58,11 @@ def run(parameters):
                 scenario_file.write('#include <stdio.h>\n\n')
                 scenario_file.write('int main()\n{\n')
 
-            else:
-
-                scenario_file.write('    printf("%s. %s ---> %s\\n");\n' % (step.id, step.action.label.replace('\n', ''), step.node.label.replace('\n', '')))
-                for codeLine in step.action.code.split('\n'):
-                    scenario_file.write('    %s\n' % codeLine)
-                for nodeCodeLine in step.node.code.split('\n'):
-                    scenario_file.write('    %s\n' % nodeCodeLine)
+            scenario_file.write('    printf("%s. %s ---> %s\\n");\n' % (step.id, step.action.label.replace('\n', ''), step.node.label.replace('\n', '')))
+            for codeLine in step.action.code.split('\n'):
+                scenario_file.write('    %s\n' % codeLine)
+            for nodeCodeLine in step.node.code.split('\n'):
+                scenario_file.write('    %s\n' % nodeCodeLine)
 
         scenario_file.write('    return 0;\n')
         scenario_file.write('}')

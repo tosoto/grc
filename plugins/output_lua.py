@@ -53,12 +53,11 @@ def run(parameters):
 
                 scenario_file.write(']]\n\n\n')
 
-            else:
-                scenario_file.write('\nprint("%s. %s ---> %s")\n' % (step.id, step.action.label.replace('\n', ''), step.node.label.replace('\n', '')))
-                for codeLine in step.action.code.split('\n'):
-                    scenario_file.write('    %s\n' % codeLine)
-                for nodeCodeLine in step.node.code.split('\n'):
-                    scenario_file.write('    %s\n' % nodeCodeLine)
+            scenario_file.write('\nprint("%s. %s ---> %s")\n' % (step.id, step.action.label.replace('\n', ''), step.node.label.replace('\n', '')))
+            for codeLine in step.action.code.split('\n'):
+                scenario_file.write('    %s\n' % codeLine)
+            for nodeCodeLine in step.node.code.split('\n'):
+                scenario_file.write('    %s\n' % nodeCodeLine)
 
         scenario_file.close()
 
