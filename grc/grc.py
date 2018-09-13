@@ -296,7 +296,7 @@ class GrcClass:
 
         for pathId in range(0, len(self.pathList)):
 
-            scenario = Scenario(pathId, '', [], self.control_words)
+            scenario = Scenario(pathId + 1, '', [], self.control_words)
 
             for edge in self.pathList[pathId]:
 
