@@ -34,7 +34,7 @@ class Scenario:
         return str(self.__dict__)
 
     def add_step(self, action_description, state_description):
-        self.steps.append(Step.Step(len(self.steps), action_description, state_description, self.control_words))
+        self.steps.append(Step.Step(len(self.steps) + 1, action_description, state_description, self.control_words))
 
     def get_steps(self):
         return self.steps
