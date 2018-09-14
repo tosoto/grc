@@ -381,15 +381,19 @@ class GrcClass:
                     self.stdOut.print_debug('step.node.label: %s' % step.node.label)
                     self.stdOut.print_debug('step.node.code: %s' % step.node.code)
 
-        if self.outputPluginLang != 'stdOut':
-            self.plugin.run_by_language(self.outputPluginLang, {'scenarios': self.scenariosList, 'stdOut': self.stdOut})
-        elif self.outputPlugin != 'stdOut':
-            self.plugin.run_by_extension(self.outputPlugin, {'scenarios': self.scenariosList, 'stdOut': self.stdOut})
-        else:
-            self.print_scenarios_on_std_out()
+        try:
+            if self.outputPluginLang != 'stdOut':
+                self.plugin.run_by_language(self.outputPluginLang, {'scenarios': self.scenariosList, 'stdOut': self.stdOut})
+            elif self.outputPlugin != 'stdOut':
+                self.plugin.run_by_extension(self.outputPlugin, {'scenarios': self.scenariosList, 'stdOut': self.stdOut})
+            else:
+                self.print_scenarios_on_std_out()
 
-        self.stdOut.my_print("--- %s scenarios generated" % len(self.scenariosList))
-        self.stdOut.my_print("--- Crawler finised in %s seconds ---" % (time.time() - crawler_start_time))
+            self.stdOut.my_print("--- %s scenarios generated" % len(self.scenariosList))
+            self.stdOut.my_print("--- Crawler finised in %s seconds ---" % (time.time() - crawler_start_time))
+
+        except IOError as e:
+            self.stdOut.print_error("Couldn't write output file\nReason: %s" % e)
 
     def __init__(self):
         sys.path.append('plugins/')
