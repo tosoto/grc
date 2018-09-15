@@ -339,6 +339,16 @@ class GrcClass:
 
     def go(self):
 
+        try:
+            version_file = open('grc/VERSION','r')
+            version = version_file.read()
+            version_file.close()
+            self.stdOut.my_print("--- GRC version: %s" % version)
+        except IOError:
+            self.stdOut.print_warning("Could't read version number - program files could be corrupted.\n\
+GRC will try to continue, but can be unstable.\n\
+It is strongly suggested to download it again and replace this installation")
+
         crawler_start_time = time.time()
 
         self.plugin = PluginList.init()
