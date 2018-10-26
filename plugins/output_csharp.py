@@ -21,7 +21,7 @@ import Scenario
 #---------- OBLIGATORY ------------
 # extension = <file extension for plugin>
 # type = <value> - please see 'Plugin.py'
-extension = 'cpp'
+extension = 'cs'
 type = 2 # output module
 language = 'csharp'
 #----------------------------------
