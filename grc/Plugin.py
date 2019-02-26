@@ -40,7 +40,7 @@ class Plugin:
             self.extension = self.handle.extension
             self.language = self.handle.language
             self.type = self.handle.type
-        except Exception, e:
+        except Exception as e:
             print("Error in plugin: %s" % self.name)
             print(e)
             quit()

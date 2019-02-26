@@ -37,6 +37,7 @@ supported_node_types = [
     'graphml:ShapeNode'
 ]
 
+
 def run(parameters):
 
     file_name = parameters['file_name']
@@ -46,7 +47,7 @@ def run(parameters):
 
     try:
         graph = xml.etree.ElementTree.parse(file_name)
-    except IOError,e:
+    except IOError as e:
         stdOut.print_error("Could not open specified file\nDetails:" + str(e))
 
     graphRoot = graph.getroot()
