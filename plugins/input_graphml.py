@@ -69,6 +69,8 @@ def run(parameters):
             id = int(node.attrib['id'].strip('n'))
             if nodeType is not None:
                 label = nodeType.find('graphml:NodeLabel', ns).text
+                if label is None:
+                    label = ''
                 nodeList.append(Node.Node(id, [], label))
                 node_recognized = True
 
